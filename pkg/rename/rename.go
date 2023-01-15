@@ -24,6 +24,17 @@ func Cleaner(s string) string {
 	return f
 }
 
+func DeObfuscateURL(url string) string {
+	s := strings.TrimSpace(strings.ToLower(url))
+	re := regexp.MustCompile(`-ampersand-`)
+	s = re.ReplaceAllString(s, " & ")
+	re = regexp.MustCompile(`-`)
+	s = re.ReplaceAllString(s, " ")
+	re = regexp.MustCompile(`_`)
+	s = re.ReplaceAllString(s, "-")
+	return Cleaner(s)
+}
+
 // Format returns a copy of s with custom formatting.
 func Format(s string) string {
 	const (

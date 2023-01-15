@@ -99,3 +99,22 @@ func TestTrimDot(t *testing.T) {
 		})
 	}
 }
+
+func TestDeObfuscateURL(t *testing.T) {
+	tests := []struct {
+		url  string
+		want string
+	}{
+		{"2-minutes-to-midnight-bbs", "2 Minutes to Midnight BBS"},
+		{"2000ad", "2000AD"},
+		{"2tally-unrubbed", "2Tally Unrubbed"},
+		{"2nd2none-bbs", "2ND2NONE BBS"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.url, func(t *testing.T) {
+			if got := rename.DeObfuscateURL(tt.url); got != tt.want {
+				t.Errorf("DeObfuscateURL() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
