@@ -6,3 +6,7 @@ import "github.com/Defacto2/sceners/pkg/rename"
 func Cleaner(s string) string {
 	return rename.Cleaner(s)
 }
+
+func CleanURL(url string) string {
+	return rename.DeObfuscateURL(url)
+}
