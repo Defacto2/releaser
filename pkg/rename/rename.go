@@ -6,33 +6,15 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Defacto2/sceners/str"
+	"github.com/Defacto2/sceners/pkg/str"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
 
 const space = " "
 
-// Clean a malformed group name and save the fix to the database.
-// func Clean(name string) (ok bool) {
-// 	fix := CleanStr(name)
-// 	if fix == name {
-// 		return false
-// 	}
-// 	count, status := int64(0), str.Y()
-// 	ok = true
-// 	count, err := Update(fix, name)
-// 	if err != nil {
-// 		status = str.X()
-// 		ok = false
-// 	}
-// 	logs.Printf("%s %q %s %s (%d)\n",
-// 		status, name, color.Question.Sprint("⟫"), color.Info.Sprint(fix), count)
-// 	return ok
-// }
-
-// CleanStr fixes the malformed string.
-func CleanStr(s string) string {
+// Cleaner fixes the malformed string.
+func Cleaner(s string) string {
 	f := str.TrimSP(s)
 	f = str.StripChars(f)
 	f = str.StripStart(f)
