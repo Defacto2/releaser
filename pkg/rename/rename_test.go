@@ -109,11 +109,56 @@ func TestDeObfuscateURL(t *testing.T) {
 		{"2000ad", "2000AD"},
 		{"2tally-unrubbed", "2Tally Unrubbed"},
 		{"2nd2none-bbs", "2ND2NONE BBS"},
+		{"class*paradigm*razor-1911", "Class, Paradigm, Razor 1911"},
+		{"down-town-bbs*bizare-bbs", "Down Town BBS, Bizare BBS"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.url, func(t *testing.T) {
 			if got := rename.DeObfuscateURL(tt.url); got != tt.want {
 				t.Errorf("DeObfuscateURL() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestFmtSyntax(t *testing.T) {
+	tests := []struct {
+		name string
+		w    string
+		want string
+	}{
+		{"empty", "", ""},
+		{"str", "hello world", "hello world"},
+		{"gap amp", "hello & world", "hello & world"},
+		{"gapless", "hello&world", "hello & world"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := rename.FmtSyntax(tt.w); got != tt.want {
+				t.Errorf("FmtSyntax() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestFormat(t *testing.T) {
+	tests := []struct {
+		name string
+		s    string
+		want string
+	}{
+		{"empty", "", ""},
+		{"EXACT", "beer", "BEER"},
+		{"exact", "SceNET", "scenet"},
+		{"specifc", "cybermail", "CyberMail"},
+		{"dz", "hashx", "Hash X"},
+		{"UPPER", "pcb", "PCB"},
+		{"lower", "7Of9", "7of9"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := rename.Format(tt.s); got != tt.want {
+				t.Errorf("Format() = %v, want %v", got, tt.want)
 			}
 		})
 	}

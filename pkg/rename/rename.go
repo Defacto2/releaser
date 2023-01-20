@@ -24,6 +24,7 @@ func Cleaner(s string) string {
 	return f
 }
 
+// DeObfuscateURL deobfuscates the url and returns a human-readable and formatted group name.
 func DeObfuscateURL(url string) string {
 	s := strings.TrimSpace(strings.ToLower(url))
 	re := regexp.MustCompile(`-ampersand-`)
@@ -32,6 +33,8 @@ func DeObfuscateURL(url string) string {
 	s = re.ReplaceAllString(s, " ")
 	re = regexp.MustCompile(`_`)
 	s = re.ReplaceAllString(s, "-")
+	re = regexp.MustCompile(`\*`)
+	s = re.ReplaceAllString(s, ", ")
 	return Cleaner(s)
 }
 
