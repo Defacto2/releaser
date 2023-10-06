@@ -3,7 +3,7 @@ package rename_test
 import (
 	"testing"
 
-	"github.com/Defacto2/sceners/pkg/rename"
+	"github.com/Defacto2/sceners/rename"
 )
 
 func TestCleaner(t *testing.T) {
@@ -100,7 +100,7 @@ func TestTrimDot(t *testing.T) {
 	}
 }
 
-func TestDeObfuscateURL(t *testing.T) {
+func TestDeObfuscate(t *testing.T) {
 	tests := []struct {
 		url  string
 		want string
@@ -114,8 +114,8 @@ func TestDeObfuscateURL(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.url, func(t *testing.T) {
-			if got := rename.DeObfuscateURL(tt.url); got != tt.want {
-				t.Errorf("DeObfuscateURL() = %q, want %q", got, tt.want)
+			if got := rename.DeObfuscate(tt.url); got != tt.want {
+				t.Errorf("DeObfuscate() = %q, want %q", got, tt.want)
 			}
 		})
 	}
@@ -154,6 +154,17 @@ func TestFormat(t *testing.T) {
 		{"dz", "hashx", "Hash X"},
 		{"UPPER", "pcb", "PCB"},
 		{"lower", "7Of9", "7of9"},
+		{"exact upper", "Anz ftp", "ANZ FTP"},
+		{"fmt by name", "Excretion anarchy", "eXCReTION Anarchy"},
+		{"am suffix", "the 12am group", "The 12AM Group"},
+		{"pm suffix", "the 12pm group", "The 12PM Group"},
+		{"dox", "thedox group", "TheDox Group"},
+		{"fxp", "thefxp group", "TheFXP Group"},
+		{"iso", "theiso group", "TheISO Group"},
+		{"nfo", "thenfo group", "TheNFO Group"},
+		{"pc", "pc-group", "PC-Group"},
+		{"lsd", "the lsdgroup", "The LSDGroup"},
+		{"inc", "inc group", "INC Group"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

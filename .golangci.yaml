@@ -1,0 +1,26 @@
+linters:
+  # Enable all available linters.
+  # Default: false
+  enable-all: true
+  # Run only fast linters from enabled linters set (first run won't be fast).
+  # Default: false
+  fast: true
+  # Disable specific linters.
+  disable:
+    # deprecated
+    - nosnakecase
+    - ifshort
+    - scopelint
+    # disabled
+    - funlen            # should enable at a later stage. 
+    - depguard          # don't need this.
+    - wsl               # fussy over whitespace.
+    - nlreturn          # fussy over whitespace.
+    # temporary disabled
+
+linters-settings:
+  misspell:
+    # Correct spellings using locale preferences for US or UK.
+    # Setting locale to US will correct the British spelling of 'colour' to 'color'.
+    # Default is to use a neutral variety of English.
+    locale: US

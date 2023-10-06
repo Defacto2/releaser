@@ -3,7 +3,7 @@ package str_test
 import (
 	"testing"
 
-	"github.com/Defacto2/sceners/pkg/str"
+	"github.com/Defacto2/sceners/str"
 )
 
 func Test_StripChars(t *testing.T) {

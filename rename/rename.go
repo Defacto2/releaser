@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Defacto2/sceners/pkg/str"
+	"github.com/Defacto2/sceners/str"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -14,19 +14,20 @@ import (
 const space = " "
 
 // Cleaner fixes the malformed string.
+// This includes the removal of duplicate spaces, the stripping of incompatible characters.
+// The removal of excess whitespace and if found "The " prefix.
 func Cleaner(s string) string {
-	f := str.TrimSP(s)
-	f = str.StripChars(f)
-	f = str.StripStart(f)
-	f = strings.TrimSpace(f)
-	f = TrimThe(f)
-	f = Format(f)
-	return f
+	x := str.TrimSP(s)
+	x = str.StripChars(x)
+	x = str.StripStart(x)
+	x = strings.TrimSpace(x)
+	x = TrimThe(x)
+	return Format(x)
 }
 
-// DeObfuscateURL deobfuscates the url and returns a human-readable and formatted group name.
-func DeObfuscateURL(url string) string {
-	s := strings.TrimSpace(strings.ToLower(url))
+// DeObfuscate the URL path and returns a human-readable, formatted group name.
+func DeObfuscate(path string) string {
+	s := strings.TrimSpace(strings.ToLower(path))
 	re := regexp.MustCompile(`-ampersand-`)
 	s = re.ReplaceAllString(s, " & ")
 	re = regexp.MustCompile(`-`)
