@@ -20,6 +20,7 @@ func Test_StripChars(t *testing.T) {
 		{"", args{"o.o|Ö+Ø=ö^ø#O"}, "ooÖØöøO"},
 		{"", args{"A Café!"}, "A Café"},
 		{"", args{"brunräven - över"}, "brunräven - över"},
+		{"", args{".~[Hello]~."}, "Hello"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -45,6 +46,7 @@ func Test_StripStart(t *testing.T) {
 		{"", args{"!!!OMG-WTF"}, "OMG-WTF"},
 		{"", args{"#ÖØöøO"}, "ÖØöøO"},
 		{"", args{"!@#$%^&A(+)ooÖØöøO"}, "A(+)ooÖØöøO"},
+		{"", args{" - [*] checkbox"}, "checkbox"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -67,6 +69,7 @@ func Test_TrimSP(t *testing.T) {
 		{"", args{"abc"}, "abc"},
 		{"", args{"a b c"}, "a b c"},
 		{"", args{"a  b  c"}, "a b c"},
+		{"", args{"hello              world"}, "hello world"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

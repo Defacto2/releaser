@@ -1,22 +1,51 @@
+// Package sceners provides functions for cleaning and formatting the scene names and titles.
 package sceners
 
-import "github.com/Defacto2/sceners/rename"
+import (
+	"regexp"
+	"strings"
+
+	"github.com/Defacto2/sceners/rename"
+	"github.com/Defacto2/sceners/str"
+)
 
 // Cleaner fixes the malformed string.
-// This includes the removal of duplicate spaces, the stripping of incompatible characters.
-// The removal of excess whitespace and if found "The " prefix.
+// This includes the removal of duplicate spaces and the stripping of incompatible characters.
+// The removal of excess whitespace and if found "The " prefix from BBS and FTP named sites.
+//
+// Example:
+//
+//	Cleaner("  Defacto2  demo  group.") = "Defacto2 Demo Group"
+//	Cleaner("the x bbs") = "X BBS"
+//	Cleaner("The X Ftp") = "X FTP"
 func Cleaner(s string) string {
-	return rename.Cleaner(s)
+	x := str.TrimSP(s)
+	x = str.StripChars(x)
+	x = str.StripStart(x)
+	x = strings.TrimSpace(x)
+	x = rename.TrimThe(x)
+	return rename.Format(x)
 }
 
-// Clean deobfuscates the URL path and returns the formatted, human-readable group name.
+// Humanize deobfuscates the URL path and returns the formatted, human-readable group name.
 // The path is expected to be in the format of a URL path without the scheme or domain.
 //
 // Example:
 //
-//	Clean("razor-1911") = "Razor 1911"
-//	Clean("razor-1911-ampersand-trsi") = "Razor 1911 & Trsi"
-//	Clean("north-american-pirate_phreak-association") = "North American Pirate-Phreak Association"
-func Clean(path string) string {
-	return rename.DeObfuscate(path)
+//	Humanize("defacto2") = "Defacto2"
+//	Humanize("razor-1911-demo") = "Razor 1911 Demo"
+//	Humanize("razor-1911-demo-ampersand-skillion") = "Razor 1911 Demo & Skillion"
+//	Humanize("north-american-pirate_phreak-association") = "North American Pirate-Phreak Association"
+//	Humanize("razor-1911-demo*trsi") = "Razor 1911 Demo, TRSi"
+func Humanize(path string) string {
+	s := strings.TrimSpace(strings.ToLower(path))
+	re := regexp.MustCompile(`-ampersand-`)
+	s = re.ReplaceAllString(s, " & ")
+	re = regexp.MustCompile(`-`)
+	s = re.ReplaceAllString(s, " ")
+	re = regexp.MustCompile(`_`)
+	s = re.ReplaceAllString(s, "-")
+	re = regexp.MustCompile(`\*`)
+	s = re.ReplaceAllString(s, ", ")
+	return Cleaner(s)
 }
