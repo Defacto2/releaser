@@ -10,7 +10,7 @@ The library is used by the [Defacto2 website](https://defacto2.net) to format th
 
 There are two main functions:
 
-* `Cleaner` - Cleans the named scener.
+* `Clean` - Cleans the named scener to correct syntax and casing.
 * `Humanize` - Formats the URL path of a scener into a human readable string.
 
 ## Usage
@@ -19,8 +19,8 @@ There are two main functions:
 import "github.com/Defacto2/sceners"
 
 func main() {
-    // Clean the scener name.
-    name := sceners.Cleaner("  The  Knightmare  BBS     ")
+    // Clean the the string scener name.
+    name := sceners.Clean("  the  knightmare  bbs ")
     fmt.Println(name) // Output: Knightmare BBS
 
     // Format the scener name into a human readable string.

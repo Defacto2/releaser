@@ -6,7 +6,7 @@ import (
 	"github.com/Defacto2/sceners"
 )
 
-func TestCleaner(t *testing.T) {
+func TestClean(t *testing.T) {
 	type args struct {
 		s string
 	}
@@ -47,8 +47,8 @@ func TestCleaner(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := sceners.Cleaner(tt.args.s); got != tt.want {
-				t.Errorf("Cleaner() = %v, want %v", got, tt.want)
+			if got := sceners.Clean(tt.args.s); got != tt.want {
+				t.Errorf("Clean() = %v, want %v", got, tt.want)
 			}
 		})
 	}

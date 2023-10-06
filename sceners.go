@@ -9,16 +9,16 @@ import (
 	"github.com/Defacto2/sceners/str"
 )
 
-// Cleaner fixes the malformed string.
+// Clean fixes the malformed string.
 // This includes the removal of duplicate spaces and the stripping of incompatible characters.
 // The removal of excess whitespace and if found "The " prefix from BBS and FTP named sites.
 //
 // Example:
 //
-//	Cleaner("  Defacto2  demo  group.") = "Defacto2 Demo Group"
-//	Cleaner("the x bbs") = "X BBS"
-//	Cleaner("The X Ftp") = "X FTP"
-func Cleaner(s string) string {
+//	Clean("  Defacto2  demo  group.") = "Defacto2 Demo Group"
+//	Clean("the x bbs") = "X BBS"
+//	Clean("The X Ftp") = "X FTP"
+func Clean(s string) string {
 	x := str.TrimSP(s)
 	x = str.StripChars(x)
 	x = str.StripStart(x)
@@ -47,5 +47,5 @@ func Humanize(path string) string {
 	s = re.ReplaceAllString(s, "-")
 	re = regexp.MustCompile(`\*`)
 	s = re.ReplaceAllString(s, ", ")
-	return Cleaner(s)
+	return Clean(s)
 }
