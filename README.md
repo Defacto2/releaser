@@ -15,8 +15,11 @@ There are four main functions:
 * `Humanize` - Formats the URL path of a releaser into a human readable string.
 * `Link` - Formats the URL path of a releaser for use as a HTML link description.
 * `Obfuscate` - Formats the named releaser into a partial URL path.
-* 
-The [name.Special](https://pkg.go.dev/github.com/Defacto2/releaser/name#Special) package contains the list of releaser names with special syntax.
+
+The [name.Special](https://pkg.go.dev/github.com/Defacto2/releaser/name#Special) func contains the list of releaser names with special syntax.
+
+The [initialism.Initialism](https://pkg.go.dev/github.com/Defacto2/releaser/initialism#Initialism) func handles the releaser alternative spellings, acronyms and initialisms.
+
 
 ## Usage
 

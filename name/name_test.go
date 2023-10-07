@@ -50,6 +50,7 @@ func TestSpecial(t *testing.T) {
 		}
 	}
 }
+
 func TestHumanize(t *testing.T) {
 	tests := []struct {
 		name    string
@@ -102,6 +103,7 @@ func TestHumanize(t *testing.T) {
 		})
 	}
 }
+
 func TestObfuscate(t *testing.T) {
 	tests := []struct {
 		name string

@@ -148,6 +148,7 @@ func TestFormat(t *testing.T) {
 		})
 	}
 }
+
 func TestConnect(t *testing.T) {
 	tests := []struct {
 		name     string

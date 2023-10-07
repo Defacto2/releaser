@@ -14,7 +14,7 @@ import (
 
 const space = " "
 
-// Abbreviation applies upper casing to known acronyms, initalisms and abbreviations.
+// Abbreviation applies upper casing to known acronyms, initialisms and abbreviations.
 // And lower casing to ordinal numbers 1st through to 13th.
 // Otherwise it returns an empty string.
 //

@@ -1,5 +1,6 @@
 // Package name provides functionality for handling the URL path of a releaser.
-// It contains a type Path that represents the URL path of a releaser and methods to validate and retrieve the well-known styled name of the releaser.
+// It contains a type Path that represents the URL path of a releaser and methods
+// to validate and retrieve the well-known styled name of the releaser.
 // It also contains a map of releasers and their well-known styled names.
 package name
 
