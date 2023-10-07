@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Defacto2/sceners/name"
+	"github.com/Defacto2/releaser/name"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )

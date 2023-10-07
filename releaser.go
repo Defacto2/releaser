@@ -1,11 +1,11 @@
-// Package sceners provides functions for cleaning and formatting the scene names and titles.
-package sceners
+// Package releaser provides functions for cleaning and formatting the scene names and titles.
+package releaser
 
 import (
 	"strings"
 
-	"github.com/Defacto2/sceners/fix"
-	"github.com/Defacto2/sceners/name"
+	"github.com/Defacto2/releaser/fix"
+	"github.com/Defacto2/releaser/name"
 )
 
 // Clean fixes the malformed string.
@@ -50,7 +50,7 @@ func Humanize(path string) string {
 	return Clean(s)
 }
 
-// Humanize deobfuscates the URL path and applies [sceners.Humanize].
+// Humanize deobfuscates the URL path and applies [releaser.Humanize].
 // In addition, the humanized name is formatted to be used as a link description.
 // If the URL path contains invalid characters then an empty string is returned.
 func Link(path string) string {

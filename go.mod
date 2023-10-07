@@ -1,4 +1,4 @@
-module github.com/Defacto2/sceners
+module github.com/Defacto2/releaser
 
 go 1.19
 

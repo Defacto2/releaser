@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Defacto2/sceners/name"
+	"github.com/Defacto2/releaser/name"
 )
 
 func TestSpecial(t *testing.T) {

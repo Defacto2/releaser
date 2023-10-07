@@ -1,31 +1,37 @@
-# sceners
+# releaser
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/Defacto2/sceners.svg)](https://pkg.go.dev/github.com/Defacto2/sceners)
+[![Go Reference](https://pkg.go.dev/badge/github.com/Defacto2/releaser.svg)](https://pkg.go.dev/github.com/Defacto2/releaser)
 
-A Go library for handling the formatting of [Defacto2 sceners](https://defacto2.net).
+A Go library for handling the formatting of [Defacto2 releasers](https://defacto2.net).
 
-Sceners are the people, groups or organisations that create the art, music, demos, intros, cracks, etc. that are found on the Defacto2 website. They are also the sites and boards that have hosted the files and communities.
+Releasers are the groups or organisations that create the art, music, demos, intros, cracks, etc. that are found on the Defacto2 website. They are also the sites and boards that have hosted the files and communities.
 
-The library is used by the [Defacto2 website](https://defacto2.net) to format the sceners' names and groups.
+The library is used by the [Defacto2 website](https://defacto2.net) to format the named groups and organizations.
 
 There are two main functions:
 
-* `Clean` - Cleans the named scener to correct syntax and casing.
-* `Humanize` - Formats the URL path of a scener into a human readable string.
+* `Clean` - Cleans the named releaser to correct any issues with syntax or casing.
+* `Humanize` - Formats the URL path of a releaser into a human readable string.
+* `Link` - Formats the URL path of a releaser for use as a HTML link description.
 
 ## Usage
 
 ```go
-import "github.com/Defacto2/sceners"
+import "github.com/Defacto2/releaser"
 
 func main() {
-    // Clean the the string scener name.
-    name := sceners.Clean("  the  knightmare  bbs ")
+    // Clean the the string releaser name.
+    name := releaser.Clean("  the  knightmare  bbs ")
     fmt.Println(name) // Output: Knightmare BBS
 
-    // Format the scener name into a human readable string.
+    // Format the releaser name into a human readable string.
     const url = "https://defacto2.net/organizations/knightmare-bbs"
-    name = sceners.Humanize(path.Base(url)
+    name = releaser.Humanize(path.Base(url)
     fmt.Println(name) // Output: Knightmare BBS
+
+    // Format the releaser names into a HTML link description.
+    const url = "https://defacto2.net/organizations/class*paradigm*razor-1911"
+    name = releaser.Humanize(path.Base(url)
+    fmt.Println(name) // Output: Class + Paradigm + Razor 1911
 }
 ```

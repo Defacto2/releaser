@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Defacto2/sceners/fix"
+	"github.com/Defacto2/releaser/fix"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )

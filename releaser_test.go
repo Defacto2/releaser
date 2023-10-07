@@ -1,9 +1,9 @@
-package sceners_test
+package releaser_test
 
 import (
 	"testing"
 
-	"github.com/Defacto2/sceners"
+	"github.com/Defacto2/releaser"
 )
 
 func TestClean(t *testing.T) {
@@ -47,7 +47,7 @@ func TestClean(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := sceners.Clean(tt.args.s); got != tt.want {
+			if got := releaser.Clean(tt.args.s); got != tt.want {
 				t.Errorf("Clean() = %v, want %v", got, tt.want)
 			}
 		})
@@ -88,7 +88,7 @@ func TestHumanize(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		actual := sceners.Humanize(tc.input)
+		actual := releaser.Humanize(tc.input)
 		if actual != tc.expected {
 			t.Errorf("Humanize(%q) = %q; expected %q", tc.input, actual, tc.expected)
 		}
@@ -101,7 +101,7 @@ func TestLink(t *testing.T) {
 		expected string
 	}{
 		{
-			input:    "/home/ben/github/sceners",
+			input:    "/home/ben/github/releaser",
 			expected: "",
 		},
 		{
@@ -115,7 +115,7 @@ func TestLink(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		actual := sceners.Link(tc.input)
+		actual := releaser.Link(tc.input)
 		if actual != tc.expected {
 			t.Errorf("Link(%q) = %q; expected %q", tc.input, actual, tc.expected)
 		}
