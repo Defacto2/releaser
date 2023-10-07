@@ -1,11 +1,11 @@
-package rename_test
+package fix_test
 
 import (
 	"fmt"
 	"strings"
 	"testing"
 
-	"github.com/Defacto2/sceners/rename"
+	"github.com/Defacto2/sceners/fix"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -15,7 +15,7 @@ func ExampleConnect() {
 	const txt = "apple and oranges"
 	s := strings.Split(titleize.String(txt), " ")
 	for i, w := range s {
-		x := rename.Connect(w, i, len(s))
+		x := fix.Connect(w, i, len(s))
 		if x != "" {
 			s[i] = x
 		}
@@ -29,7 +29,7 @@ func ExampleFix() {
 	const txt = "members of 2000ad will meet at 3pm"
 	s := strings.Split(titleize.String(txt), " ")
 	for i, w := range s {
-		x := rename.Fix(w, i, len(s))
+		x := fix.Fix(w, i, len(s))
 		if x != "" {
 			s[i] = x
 		}
@@ -38,9 +38,9 @@ func ExampleFix() {
 	// Output: Members of 2000AD Will Meet at 3PM
 }
 
-func ExampleFixHyphen() {
+func ExampleHyphen() {
 	const txt = "members-of-2000ad-will-meet-at-3pm"
-	fmt.Println(rename.FixHyphen(txt))
+	fmt.Println(fix.Hyphen(txt))
 	// Output: Members-of-2000AD-Will-Meet-at-3PM
 }
 
@@ -63,7 +63,7 @@ func TestTrimThe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := rename.TrimThe(tt.args.g); got != tt.want {
+			if got := fix.TrimThe(tt.args.g); got != tt.want {
 				t.Errorf("TrimThe() = %v, want %v", got, tt.want)
 			}
 		})
@@ -86,7 +86,7 @@ func TestTrimDot(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := rename.TrimDot(tt.args.s); got != tt.want {
+			if got := fix.TrimDot(tt.args.s); got != tt.want {
 				t.Errorf("TrimDot() = %v, want %v", got, tt.want)
 			}
 		})
@@ -107,7 +107,7 @@ func TestAmp(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := rename.Amp(tt.w); got != tt.want {
+			if got := fix.Amp(tt.w); got != tt.want {
 				t.Errorf("Amp() = %v, want %v", got, tt.want)
 			}
 		})
@@ -142,7 +142,7 @@ func TestFormat(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := rename.Format(tt.s); got != tt.want {
+			if got := fix.Format(tt.s); got != tt.want {
 				t.Errorf("Format() = %v, want %v", got, tt.want)
 			}
 		})
@@ -166,8 +166,82 @@ func TestConnect(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := rename.Connect(tt.word, tt.position, tt.last); got != tt.want {
+			if got := fix.Connect(tt.word, tt.position, tt.last); got != tt.want {
 				t.Errorf("Connect() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_StripChars(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"", args{""}, ""},
+		{"", args{"ooÖØöøO"}, "ooÖØöøO"},
+		{"", args{"o.o|Ö+Ø=ö^ø#O"}, "ooÖØöøO"},
+		{"", args{"A Café!"}, "A Café"},
+		{"", args{"brunräven - över"}, "brunräven - över"},
+		{"", args{".~[Hello]~."}, "Hello"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := fix.StripChars(tt.args.s); got != tt.want {
+				t.Errorf("StripChars() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_StripStart(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"", args{""}, ""},
+		{"", args{"hello world"}, "hello world"},
+		{"", args{"--argument"}, "argument"},
+		{"", args{"!!!OMG-WTF"}, "OMG-WTF"},
+		{"", args{"#ÖØöøO"}, "ÖØöøO"},
+		{"", args{"!@#$%^&A(+)ooÖØöøO"}, "A(+)ooÖØöøO"},
+		{"", args{" - [*] checkbox"}, "checkbox"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := fix.StripStart(tt.args.s); got != tt.want {
+				t.Errorf("StripStart() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_TrimSP(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"", args{"abc"}, "abc"},
+		{"", args{"a b c"}, "a b c"},
+		{"", args{"a  b  c"}, "a b c"},
+		{"", args{"hello              world"}, "hello world"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := fix.TrimSP(tt.args.s); got != tt.want {
+				t.Errorf("TrimSP() = %v, want %v", got, tt.want)
 			}
 		})
 	}

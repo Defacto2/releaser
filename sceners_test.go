@@ -65,18 +65,18 @@ func TestHumanize(t *testing.T) {
 		},
 		{
 			input:    "/razor-1911//",
-			expected: "Razor 1911",
+			expected: "",
 		},
 		{
-			input:    "/razor-1911-ampersand-skillion",
+			input:    "razor-1911-ampersand-skillion",
 			expected: "Razor 1911 & Skillion",
 		},
 		{
-			input:    "/razor-1911*trsi",
+			input:    "razor-1911*trsi",
 			expected: "Razor 1911, TRSi",
 		},
 		{
-			input:    "/north-american-pirate_phreak-association",
+			input:    "north-american-pirate_phreak-association",
 			expected: "North American Pirate-Phreak Association",
 		},
 		{"2-minutes-to-midnight-bbs", "2 Minutes to Midnight BBS"},
@@ -91,6 +91,33 @@ func TestHumanize(t *testing.T) {
 		actual := sceners.Humanize(tc.input)
 		if actual != tc.expected {
 			t.Errorf("Humanize(%q) = %q; expected %q", tc.input, actual, tc.expected)
+		}
+	}
+}
+
+func TestLink(t *testing.T) {
+	testCases := []struct {
+		input    string
+		expected string
+	}{
+		{
+			input:    "/home/ben/github/sceners",
+			expected: "",
+		},
+		{
+			input:    "class",
+			expected: "Class",
+		},
+		{
+			input:    "class*paradigm*razor-1911",
+			expected: "Class + Paradigm + Razor 1911",
+		},
+	}
+
+	for _, tc := range testCases {
+		actual := sceners.Link(tc.input)
+		if actual != tc.expected {
+			t.Errorf("Link(%q) = %q; expected %q", tc.input, actual, tc.expected)
 		}
 	}
 }
