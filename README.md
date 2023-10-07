@@ -9,12 +9,13 @@ They are also the sites and boards that have hosted the files and communities.
 
 The library is used by the [Defacto2 website](https://defacto2.net) to format the named groups and organizations.
 
-There are three main functions:
+There are four main functions:
 
 * `Clean` - Cleans the named releaser to correct any issues with syntax or casing.
 * `Humanize` - Formats the URL path of a releaser into a human readable string.
 * `Link` - Formats the URL path of a releaser for use as a HTML link description.
-
+* `Obfuscate` - Formats the named releaser into a partial URL path.
+* 
 The [name.Special](https://pkg.go.dev/github.com/Defacto2/releaser/name#Special) package contains the list of releaser names with special syntax.
 
 ## Usage
@@ -34,6 +35,10 @@ func main() {
     // Clean the the string releaser name.
     name := releaser.Clean("  the  knightmare  bbs ")
     fmt.Println(name) // Output: Knightmare BBS
+
+    // Format the releaser name into a URL path.
+    urlPath = releaser.Obfuscate("the knightmare bbs")
+    fmt.Println(urlPath) // Output: knightmare-bbs
 
     // Format the releaser name into a human readable string.
     const url = "https://defacto2.net/organizations/knightmare-bbs"

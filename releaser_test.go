@@ -121,3 +121,26 @@ func TestLink(t *testing.T) {
 		}
 	}
 }
+
+func TestObfuscate(t *testing.T) {
+	tests := []struct {
+		name string
+		arg  string
+		want string
+	}{
+		{"empty string", "", ""},
+		{"single word", "hello", "hello"},
+		{"multiple words", "the quick brown fox", "the-quick-brown-fox"},
+		{"special characters", "h3ll0 w0rld!", "h3ll0-w0rld"},
+		{"numbers only", "hello & world, foxes", "hello-ampersand-world*foxes"},
+		{"readme example", "the knightmare bbs", "knightmare-bbs"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := releaser.Obfuscate(tt.arg); got != tt.want {
+				t.Errorf("Obfuscate(%q) = %q, want %q", tt.arg, got, tt.want)
+			}
+		})
+	}
+}

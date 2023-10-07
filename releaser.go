@@ -57,3 +57,16 @@ func Link(path string) string {
 	s := Humanize(path)
 	return strings.ReplaceAll(s, ", ", " + ")
 }
+
+// Obfuscate formats the string to be used as a URL path.
+//
+// Example:
+//
+//	Obfuscate("ACiD Productions") = "acid-productions"
+//	Obfuscate("Razor 1911 Demo & Skillion") = "razor-1911-demo-ampersand-skillion"
+//	Obfuscate("TDU-Jam!") = "tdu_jam"
+func Obfuscate(s string) string {
+	c := Clean(s)
+	x := name.Obfuscate(c)
+	return string(x)
+}
