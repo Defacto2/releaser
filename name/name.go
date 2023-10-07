@@ -1,3 +1,6 @@
+// Package name provides functionality for handling the URL path of a releaser.
+// It contains a type Path that represents the URL path of a releaser and methods to validate and retrieve the well-known styled name of the releaser.
+// It also contains a map of releasers and their well-known styled names.
 package name
 
 import (
@@ -6,14 +9,18 @@ import (
 	"strings"
 )
 
-var (
-	ErrInvalidPath = errors.New("the path contains invalid characters")
-)
+var ErrInvalidPath = errors.New("the path contains invalid characters")
 
-// Path is a the URL path of the releaser.
+// A Path is a the partial URL path of the releaser.
 type Path string
 
-// String returns the well-known styled name of the releaser if it exists.
+// String returns the well-known styled name of the releaser if it exists in the
+// names, lowercase or uppercase lists. Otherwise it returns an empty string.
+//
+// Example:
+//
+//	name.Path("acid-productions").String() = "ACiD Productions"
+//	name.Path("razor-1911").String() = "" // unlisted
 func (path Path) String() string {
 	p := Path(strings.ToLower(string(path)))
 	list := Special()
@@ -25,13 +32,18 @@ func (path Path) String() string {
 
 // Valid returns true if the URL path uses valid characters.
 // Valid URL paths are all lowercase and contain only alphanumeric characters, dashes, underscores,
-// amperage and asterisks.
+// ampersands and asterisks.
+//
+// Example:
+//
+//	name.Path("acid-productions").Valid() = true
+//	name.Path("acid-productions!").Valid() = false
 func (path Path) Valid() bool {
 	re := regexp.MustCompile(`^[a-z0-9\&\-_\*]+$`)
 	return re.MatchString(string(path))
 }
 
-// List is a map of releasers and their well-known styled names.
+// A List is a map of releasers and their well-known styled names.
 type List map[Path]string
 
 const tdttrsi = "the-dream-team*tristar-ampersand-red-sector-inc"
@@ -186,8 +198,9 @@ func Names() List {
 func Lower() List {
 	l := make(List, len(lowercase))
 	for _, s := range lowercase {
-		x, _ := Humanize(s)
-		l[Path(s)] = strings.ToLower(x)
+		p := Path(s)
+		x, _ := Humanize(p)
+		l[p] = strings.ToLower(x)
 	}
 	return l
 }
@@ -196,20 +209,21 @@ func Lower() List {
 func Upper() List {
 	l := make(List, len(uppercase))
 	for _, s := range uppercase {
-		x, _ := Humanize(s)
-		l[Path(s)] = strings.ToUpper(x)
+		p := Path(s)
+		x, _ := Humanize(p)
+		l[p] = strings.ToUpper(x)
 	}
 	return l
 }
 
 // Humanize deobfuscates the URL path and returns the formatted, human-readable group name.
 // If the URL path contains invalid characters then an error is returned.
-func Humanize(path string) (string, error) {
-	if !Path(path).Valid() {
+func Humanize(path Path) (string, error) {
+	if !path.Valid() {
 		return "", ErrInvalidPath
 	}
 
-	s := strings.TrimSpace(strings.ToLower(path))
+	s := strings.ToLower(string(path))
 
 	re := regexp.MustCompile(`-ampersand-`)
 	s = re.ReplaceAllString(s, " & ")
@@ -226,7 +240,13 @@ func Humanize(path string) (string, error) {
 }
 
 // Obfuscate formats the named string to be used as a URL path.
-func Obfuscate(name string) string {
+//
+// Example:
+//
+//	Obfuscate("ACiD Productions") = "acid-productions"
+//	Obfuscate("Razor 1911 Demo & Skillion") = "razor-1911-demo-ampersand-skillion"
+//	Obfuscate("TDU-Jam!") = "tdu_jam"
+func Obfuscate(name string) Path {
 	s := strings.TrimSpace(strings.ToLower(name))
 
 	re := regexp.MustCompile(`[^a-z0-9\&\-\,\ ]`)
@@ -246,5 +266,5 @@ func Obfuscate(name string) string {
 	re = regexp.MustCompile(` `)
 	s = re.ReplaceAllString(s, "-")
 
-	return s
+	return Path(s)
 }

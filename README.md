@@ -8,11 +8,13 @@ Releasers are the groups or organisations that create the art, music, demos, int
 
 The library is used by the [Defacto2 website](https://defacto2.net) to format the named groups and organizations.
 
-There are two main functions:
+There are three main functions:
 
 * `Clean` - Cleans the named releaser to correct any issues with syntax or casing.
 * `Humanize` - Formats the URL path of a releaser into a human readable string.
 * `Link` - Formats the URL path of a releaser for use as a HTML link description.
+
+The [name.Special](https://pkg.go.dev/github.com/Defacto2/releaser/name#Special) package contains the list of releaser names with special syntax.
 
 ## Usage
 

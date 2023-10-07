@@ -7,6 +7,36 @@ import (
 	"github.com/Defacto2/releaser/name"
 )
 
+func ExampleHumanize() {
+	s, _ := name.Humanize("defacto2")
+	fmt.Println(s)
+
+	s, _ = name.Humanize("razor-1911-demo")
+	fmt.Println(s)
+
+	s, _ = name.Humanize("razor-1911-demo*trsi")
+	fmt.Println(s)
+
+	x, err := name.Humanize("razor-1911-demo#trsi")
+	fmt.Printf("%q, %s\n", x, err)
+
+	// Output:
+	// defacto2
+	// razor 1911 demo
+	// razor 1911 demo, trsi
+	// "", the path contains invalid characters
+}
+
+func ExampleSpecial() {
+	find := name.Path("surprise-productions")
+	for key, val := range name.Special() {
+		if key == find {
+			fmt.Println(val)
+		}
+	}
+	// Output: Surprise! Productions
+}
+
 func TestSpecial(t *testing.T) {
 	// confirm all keys are valid and values are not empty
 	special := name.Special()
@@ -23,7 +53,7 @@ func TestSpecial(t *testing.T) {
 func TestHumanize(t *testing.T) {
 	tests := []struct {
 		name    string
-		path    string
+		path    name.Path
 		want    string
 		wantErr error
 	}{
@@ -113,7 +143,7 @@ func TestObfuscate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := name.Obfuscate(tt.arg)
-			if got != tt.want {
+			if got != name.Path(tt.want) {
 				t.Errorf("Obfuscate(%q) = %q, want %q", tt.arg, got, tt.want)
 			}
 		})

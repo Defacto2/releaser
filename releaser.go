@@ -39,8 +39,8 @@ func Clean(s string) string {
 //	Humanize("razor-1911-demo*trsi") = "Razor 1911 Demo, TRSi"
 //	Humanize("razor-1911-demo#trsi") = "" // invalid # character
 func Humanize(path string) string {
-	p := strings.ToLower(path)
-	if special := name.Path(p).String(); special != "" {
+	p := name.Path(strings.ToLower(path))
+	if special := p.String(); special != "" {
 		return special
 	}
 	s, err := name.Humanize(p)
