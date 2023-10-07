@@ -2,10 +2,24 @@ package initialism_test
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/Defacto2/releaser/initialism"
 )
+
+func ExampleInitialisms() {
+	const find = "USA"
+	for k, v := range initialism.Initialisms() {
+		for _, x := range v {
+			if x == find {
+				fmt.Printf("Found %v in %v\n", find, k)
+				return
+			}
+		}
+	}
+	// Output: Found USA in united-software-association
+}
 
 func ExampleJoin() {
 	s := initialism.Join("the-firm")
@@ -45,6 +59,19 @@ func TestInitialisms(t *testing.T) {
 	}
 	if len(l) < 100 {
 		t.Errorf("Initialisms() = %v, want %v", l, "more than 100")
+	}
+
+	s := "inc"
+	m := ""
+	for _, v := range l {
+		for _, x := range v {
+			if strings.ToLower(x) == s {
+				m = x
+			}
+		}
+	}
+	if m == "" {
+		t.Errorf("Initialisms() could not find %v", s)
 	}
 }
 

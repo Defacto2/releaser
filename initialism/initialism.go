@@ -1,8 +1,10 @@
 // Package initialism provides a list of alternative spellings, acronyms and initialisms for the named releasers.
 //
-// An initialism is an abbreviation consisting of the initial letters pronounced invidivually (e.g. USA).
+// Alternative spellings are the same name but with different casing, spelling or punctuation (e.g. Coca-Cola, Coke).
 //
 // An acronym is an abbreviation formed from the initial letters of other words and pronounced as a word (e.g. NATO).
+//
+// An initialism is an abbreviation consisting of the initial letters pronounced invidivually (e.g. USA).
 package initialism
 
 import "strings"
@@ -273,11 +275,12 @@ var initialisms = List{
 	"zone":                                  {"z0ne"},
 }
 
-// Initialism returns the initialism for the URL path.
+// Initialism returns the alternative spellings, acronyms and initialisms for the URL path.
 // Or an empty slice if the URL path has no initialism.
 //
 // Example:
 //
+//	Initialism("the-firm") = []string{"FiRM, FRM"}
 //	Initialism("defacto2") = []string{"DF2"}
 func Initialism(path Path) []string {
 	return initialisms[path]
@@ -292,6 +295,7 @@ func Initialisms() List {
 //
 // Example:
 //
+//	IsInitialism("the-firm") = true
 //	IsInitialism("defacto2") = true
 //	IsInitialism("some-random-bbs") = false
 func IsInitialism(path Path) bool {
@@ -299,7 +303,8 @@ func IsInitialism(path Path) bool {
 	return ok
 }
 
-// Join returns the initialisms for the URL path as a comma separated string.
+// Join returns the alternative spellings, acronyms and initialisms for the
+// URL path as a comma separated string.
 // Or an empty string if the URL path has no initialism.
 //
 // Example:
