@@ -4,7 +4,8 @@
 
 A Go library for handling the formatting of [Defacto2 releasers](https://defacto2.net).
 
-Releasers are the groups or organisations that create the art, music, demos, intros, cracks, etc. that are found on the Defacto2 website. They are also the sites and boards that have hosted the files and communities.
+Releasers are the groups or organisations that create the art, music, demos, intros, cracks, etc. that are found on the Defacto2 website.
+They are also the sites and boards that have hosted the files and communities.
 
 The library is used by the [Defacto2 website](https://defacto2.net) to format the named groups and organizations.
 
@@ -18,6 +19,14 @@ The [name.Special](https://pkg.go.dev/github.com/Defacto2/releaser/name#Special)
 
 ## Usage
 
+In your Go project, import the releaser library.
+
+```sh
+go get github.com/Defacto2/releaser
+```
+
+Use the functions.
+
 ```go
 import "github.com/Defacto2/releaser"
 
@@ -28,12 +37,12 @@ func main() {
 
     // Format the releaser name into a human readable string.
     const url = "https://defacto2.net/organizations/knightmare-bbs"
-    name = releaser.Humanize(path.Base(url)
+    name = releaser.Humanize(path.Base(url))
     fmt.Println(name) // Output: Knightmare BBS
 
     // Format the releaser names into a HTML link description.
     const url = "https://defacto2.net/organizations/class*paradigm*razor-1911"
-    name = releaser.Humanize(path.Base(url)
+    name = releaser.Link(path.Base(url))
     fmt.Println(name) // Output: Class + Paradigm + Razor 1911
 }
 ```
