@@ -222,7 +222,7 @@ func Sequence(w string, i int) string {
 	return ""
 }
 
-// StripChars removes all the incompatible characters that cannot be used for groups and author names.
+// StripChars removes all the incompatible characters that cannot be used for releaser URL paths.
 //
 // Example:
 //
@@ -280,13 +280,14 @@ func TrimSP(s string) string {
 	return r.ReplaceAllString(s, " ")
 }
 
-// TrimThe drops "The" prefix whenever the named site ends with "BBS" or "FTP".
-// This is to avoid the same site name being both "The X BBS" and "X BBS".
+// TrimThe drops "The " prefix whenever the named string ends with " BBS" or " FTP".
+// It is to avoid unique site names duplication, e.g. "The X BBS" and "X BBS".
 //
 // Example:
 //
 //	TrimThe("The X BBS") = "X BBS"
-//	TrimThe("The X") = "The X"
+//	TrimThe("X BBS") = "X BBS"
+//	TrimThe("The X") = "The X" // no change
 func TrimThe(name string) string {
 	const short = 2
 	a := strings.Split(name, space)

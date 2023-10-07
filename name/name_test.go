@@ -18,7 +18,7 @@ func ExampleHumanize() {
 	fmt.Println(s)
 
 	x, err := name.Humanize("razor-1911-demo#trsi")
-	fmt.Printf("%q, %s\n", x, err)
+	fmt.Printf("%q, %s\n", x, err) // print the quoted x string and any error
 
 	// Output:
 	// defacto2
