@@ -12,7 +12,7 @@ import (
 
 var ErrInvalidPath = errors.New("the path contains invalid characters")
 
-// A Path is a the partial URL path of the releaser.
+// A Path is the partial URL path of the releaser.
 type Path string
 
 // String returns the well-known styled name of the releaser if it exists in the

@@ -9,12 +9,13 @@ package initialism
 
 import "strings"
 
-// A Path is a the partial URL path of the releaser.
+// A Path is the partial URL path of the releaser.
 type Path string
 
 // List is a map of initialisms to releasers.
 type List map[Path][]string
 
+// path keys that are too long for the initialism map.
 const (
 	crue    = "cheat-requests-for-the-underground-elite"
 	nappa   = "north-american-pirate_phreak-association"
