@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"unicode"
 
 	"github.com/Defacto2/releaser/initialism"
+	"github.com/stretchr/testify/assert"
 )
 
 func ExampleInitialisms() {
@@ -41,7 +43,7 @@ func TestInitialism(t *testing.T) {
 		{"unknown path", "some-random-bbs", nil},
 		{"known", "union", []string{"UNi"}},
 		{"multiple", "wave", []string{"The Wave", "CNC"}},
-		{"df2", "defacto2", []string{"DF2"}},
+		{"df2", "defacto2", []string{"DF2", "DF"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -49,6 +51,15 @@ func TestInitialism(t *testing.T) {
 				t.Errorf("Initialism() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+	// Confirm all keys are valid URL paths.
+	for key := range initialism.Initialisms() {
+		// keys must be lowercase and start with only letters or numbers
+		k := string(key)
+		chr := rune(k[0])
+		assert.Equal(t, strings.ToLower(k), k)
+		assert.Equal(t, strings.TrimSpace(k), k)
+		assert.True(t, unicode.IsLetter(chr) || unicode.IsNumber(chr), k)
 	}
 }
 
