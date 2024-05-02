@@ -80,6 +80,34 @@ func Connect(w string, position, last int) string {
 	return ""
 }
 
+// Cell returns a copy of s with custom formatting for storage in a database cell.
+// All words will be upper cased and stipped of incompatible characters.
+//
+// Example:
+//
+//	Cell(" Defacto2  demo  group. ") = "DEFACTO2 DEMO GROUP"
+//	Cell("the x bbs") = "X BBS"
+func Cell(s string) string {
+	const separator = ", "
+	groups := strings.Split(s, separator)
+	for j, group := range groups {
+		g := strings.ToLower(strings.TrimSpace(group))
+		g = Amp(g)
+		words := strings.Split(g, space)
+		last := len(words) - 1
+		for i, word := range words {
+			word = TrimDot(word)
+			if fix := Hyphen(word); fix != "" {
+				words[i] = fix
+				continue
+			}
+			words[i] = Fix(word, i, last)
+		}
+		groups[j] = strings.Join(words, space)
+	}
+	return strings.ToUpper(strings.Join(groups, separator))
+}
+
 // Fix formats the w string based on its position in the words slice.
 // The position is the index of the word in the words slice.
 // The last is the index of the last word in the words slice.
@@ -135,10 +163,6 @@ func Format(s string) string {
 	for j, group := range groups {
 		g := strings.ToLower(strings.TrimSpace(group))
 		g = Amp(g)
-		// if fix := Case(g); fix != "" {
-		// 	groups[j] = fix
-		// 	continue
-		// }
 		if special := name.Path(name.Obfuscate(g)).String(); special != "" {
 			groups[j] = special
 			continue

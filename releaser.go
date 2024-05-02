@@ -8,6 +8,24 @@ import (
 	"github.com/Defacto2/releaser/name"
 )
 
+// Cell formats the string to be used as a cell in a database table.
+// This includes the removal of duplicate spaces and the stripping of incompatible characters.
+// The removal of excess whitespace and if found "The " prefix from BBS and FTP named sites.
+//
+// Example:
+//
+//	Cell("  Defacto2  demo  group.") = "DEFACTO2 DEMO GROUP"
+//	Cell("the x bbs") = "X BBS"
+//	Cell("defacto2.net") = "DEFACTO2NET"
+func Cell(s string) string {
+	x := fix.TrimSP(s)
+	x = fix.StripChars(x)
+	x = fix.StripStart(x)
+	x = strings.TrimSpace(x)
+	x = fix.TrimThe(x)
+	return fix.Cell(x)
+}
+
 // Clean fixes the malformed string.
 // This includes the removal of duplicate spaces and the stripping of incompatible characters.
 // The removal of excess whitespace and if found "The " prefix from BBS and FTP named sites.

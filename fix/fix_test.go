@@ -149,6 +149,27 @@ func TestFormat(t *testing.T) {
 	}
 }
 
+func TestCell(t *testing.T) {
+	tests := []struct {
+		name string
+		s    string
+		want string
+	}{
+		{"empty", "", ""},
+		{"EXACT", "beer", "BEER"},
+		{"exact", "SceNET", "SCENET"},
+		{"pc", "pc-group", "PC-GROUP"},
+		{"no dots", "hello.", "HELLO"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := fix.Cell(tt.s); got != tt.want {
+				t.Errorf("Cell() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestConnect(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -189,6 +210,7 @@ func Test_StripChars(t *testing.T) {
 		{"", args{"A Café!"}, "A Café"},
 		{"", args{"brunräven - över"}, "brunräven - över"},
 		{"", args{".~[Hello]~."}, "Hello"},
+		{"", args{"defacto2.net"}, "defacto2net"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
