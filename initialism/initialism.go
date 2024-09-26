@@ -22,13 +22,11 @@ const (
 	nappa   = "north-american-pirate_phreak-association"
 	neua    = "national-elite-underground-alliance"
 	nuaa    = "national-underground-application-alliance"
-	tdttrsi = "the-dream-team*tristar-ampersand-red-sector-inc"
 	tlf     = "tristar-ampersand-red-sector-inc*lightforce*fusion"
 	assign  = "all-softwares-spread-into-global-network"
 	mgsci   = "monthly-gameboy-scene-charts-international"
 	nasa    = "north-american-society-of-anarchists"
 	quick   = "quality-underground-image-creation-kings"
-	megape  = "public-enemy*tristar-ampersand-red-sector-inc*the-dream-team"
 )
 
 // All initialisms should be in their stylized form and can include
@@ -101,6 +99,7 @@ var initialisms = List{
 	"chinese-software-distribution-network": {"CSDN"},
 	"codex":                                 {"CDX"},
 	"coolphat-vibez":                        {"CPHV"},
+	"coop":                                  {"The Dream Team + Tristar + Red Sector Inc.", "The Co-op"},
 	"conspiracy":                            {"CSY", "CPY"},
 	"console-supply-iso":                    {"CSISO"},
 	"copycats-inc":                          {"CCI"},
@@ -285,16 +284,15 @@ var initialisms = List{
 	"intension":                            {"ITN"},
 	"insane-creators-enterprise":           {"iCE"},
 	"international-network-of-crackers":    {"INC"},
-	"inc-europe":                           {"INC"},
-	"international-cracking-crew":          {"iCC"},
-	"international-software-alliance":      {"ISA"},
+	"inc-europe": {
+		"INC", "International Network of Crackers"},
+	"international-cracking-crew":     {"iCC"},
+	"international-software-alliance": {"ISA"},
 	"inc-documentation-division": {
-		"IDD",
-		"International Network of Crackers DD",
+		"IDD", "International Network of Crackers",
 	},
 	"inc-utility-division": {
-		"IUD",
-		"International Network of Crackers UD",
+		"IUD", "International Network of Crackers",
 	},
 	"image":                         {"IMG"},
 	"imphobia":                      {"IMP"},
@@ -348,7 +346,6 @@ var initialisms = List{
 	"millenium":                               {"MnM"}, //nolint:misspell
 	"mutual-assured-destruction":              {"MAD"},
 	"manifest":                                {"MFD", "Manifest Destiny"},
-	megape:                                    {"PE TDT TRSI"},
 	mgsci:                                     {"MGSCI"},
 	"motiv8":                                  {"M8"},
 	"mickey-mouse-club":                       {"MMC"},
@@ -396,6 +393,7 @@ var initialisms = List{
 	"paradox":                                 {"PDX"},
 	"pc_cracking-service":                     {"PC-CS", "PCCS"},
 	"pdm-iso":                                 {"PDMISO", "Paradigm ISO"},
+	"pe*trsi*tdt":                             {"Public Enemy + Tristar + Red Sector + The Dream Team"},
 	"pentagram":                               {"PTG"},
 	"pentium-force-team":                      {"PFT"},
 	"persian-genius-team":                     {"PGteam"},
@@ -524,7 +522,6 @@ var initialisms = List{
 	"the-dream-team":                        {"TDT"},
 	"the-documentation-network":             {"TDN"},
 	"the-dominators":                        {"DOM"},
-	tdttrsi:                                 {"TDT/TRSi"},
 	"the-elementals-piratelist":             {"TEP"},
 	"the-elite-scripting-team":              {"TEST"},
 	"the-faction":                           {"FACTION"},
@@ -585,7 +582,7 @@ var initialisms = List{
 	"triad":                                 {"TRI"},
 	"tristar":                               {"TRS"},
 	"tristar-ampersand-red-sector-inc":      {"TRSi", "TRS", "Tristar"},
-	tlf:                                     {"TLF", "TRSI Lightforce Fusion"},
+	tlf:                                     {"TLF", "TRSi/Lightforce/Fusion"},
 	"twilight":                              {"TW"},
 	"twilight-designs-crew":                 {"TDC"},
 	"tyranny":                               {"TYR"},
@@ -613,6 +610,8 @@ var initialisms = List{
 	"vengeance":                             {"VGN", "VEN", "Vengeance"},
 	"vengeance-couriers":                    {"VGN"},
 	"vertex":                                {"VTX"},
+	"victoria-independent-piracy":           {"VIP"},
+	"vital-dox":                             {"VD"},
 	"vision-factory":                        {"VF"},
 	"visions-of-reality":                    {"VOR"},
 	"virility":                              {"VRL"},

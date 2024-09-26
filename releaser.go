@@ -1,4 +1,4 @@
-// Package releaser provides functions for cleaning and formatting the scene names and titles.
+// Package releaser provides string functions for cleaning and reformatting the names of release groups and partial URL paths.
 package releaser
 
 import (

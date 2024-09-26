@@ -20,7 +20,7 @@ const space = " "
 //
 // Example:
 //
-//	Abbreviation("1sT") = "1st"
+//	Abbreviation("1ST") = "1st"
 //	Abbreviation("iso") = "ISO"
 func Abbreviation(s string) string {
 	x := strings.ToLower(s)

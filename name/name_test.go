@@ -16,15 +16,19 @@ func ExampleHumanize() {
 
 	s, _ = name.Humanize("razor-1911-demo*trsi")
 	fmt.Println(s)
-
-	x, err := name.Humanize("razor-1911-demo#trsi")
-	fmt.Printf("%q, %s\n", x, err) // print the quoted x string and any error
-
 	// Output:
 	// defacto2
 	// razor 1911 demo
 	// razor 1911 demo, trsi
-	// "", the path contains invalid characters
+}
+
+func ExampleHumanize_error() {
+	_, err := name.Humanize("razor-1911-demo#trsi")
+	if err != nil {
+		fmt.Println(err)
+	}
+	// Output:
+	// the path contains invalid characters
 }
 
 func ExampleSpecial() {
@@ -35,6 +39,55 @@ func ExampleSpecial() {
 		}
 	}
 	// Output: Surprise! Productions
+}
+
+func ExampleObfuscate() {
+	obf := name.Obfuscate("ACiD Productions")
+	if !obf.Valid() {
+		fmt.Println("invalid")
+	} else {
+		fmt.Println(string(obf))
+	}
+	// Output: acid-productions
+}
+
+func ExampleList() {
+	uri := "defacto2net"
+	for key, val := range name.Names() {
+		if key == name.Path(uri) {
+			fmt.Println(val)
+		}
+	}
+	// Output: defacto2.net
+}
+
+func ExampleUpper() {
+	uri := "beer"
+	for key, val := range name.Upper() {
+		if key == name.Path(uri) {
+			fmt.Println(val)
+		}
+	}
+	// Output: BEER
+}
+
+func ExamplePath_String() {
+	fmt.Println(name.Path("acid-productions").String())
+	// Output: ACiD Productions
+}
+
+func ExamplePath_String_unlisted() {
+	s := name.Path("defacto2").String()
+	fmt.Println(len(s))
+	// Output: 0
+}
+
+func ExamplePath_Valid() {
+	fmt.Println(name.Path("defacto2").Valid())
+
+	fmt.Println(name.Path("Defacto2").Valid())
+	// Output: true
+	// false
 }
 
 func TestSpecial(t *testing.T) {

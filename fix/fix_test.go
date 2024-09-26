@@ -10,6 +10,11 @@ import (
 	"golang.org/x/text/language"
 )
 
+func ExampleAbbreviation() {
+	fmt.Println(fix.Abbreviation("whq"))
+	// Output: WHQ
+}
+
 func ExampleConnect() {
 	titleize := cases.Title(language.English, cases.NoLower)
 	const txt = "apple and oranges"
@@ -39,9 +44,24 @@ func ExampleFix() {
 }
 
 func ExampleHyphen() {
-	const txt = "members-of-2000ad-will-meet-at-3pm"
-	fmt.Println(fix.Hyphen(txt))
+	s := "members-of-2000ad-will-meet-at-3pm"
+	fmt.Println(fix.Hyphen(s))
 	// Output: Members-of-2000AD-Will-Meet-at-3PM
+}
+
+func ExampleFormat() {
+	fmt.Println(fix.Format("the BEST bbs"))
+	// Output: The Best BBS
+}
+
+func ExampleStripChars() {
+	fmt.Println(fix.StripChars("!!!OMG-WTF???"))
+	// Output: OMG-WTF
+}
+
+func ExampleTrimSP() {
+	fmt.Print(fix.TrimSP("            hello              world        "))
+	// Output: hello world
 }
 
 func TestTrimThe(t *testing.T) {

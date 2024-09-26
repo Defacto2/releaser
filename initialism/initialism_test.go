@@ -10,6 +10,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func ExampleInitialism() {
+	fmt.Println(initialism.Initialism("defacto2"))
+	// Output: [DF2 DF]
+}
+
 func ExampleInitialisms() {
 	const find = "USA"
 	for k, v := range initialism.Initialisms() {
@@ -23,12 +28,15 @@ func ExampleInitialisms() {
 	// Output: Found USA in united-software-association
 }
 
-func ExampleJoin() {
-	s := initialism.Join("the-firm")
-	fmt.Println(s) // FiRM, FRM
+func ExampleIsInitialism() {
+	fmt.Println(initialism.IsInitialism("defacto2"))
+	// Output: true
+}
 
-	s = initialism.Join("united-software-association")
-	fmt.Println(s) // USA
+func ExampleJoin() {
+	fmt.Println(initialism.Join("the-firm")) // FiRM, FRM
+
+	fmt.Println(initialism.Join("united-software-association")) // USA
 	// Output: FiRM, FRM
 	// USA
 }
