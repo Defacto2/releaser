@@ -26,7 +26,7 @@ func main() {
 	name := releaser.Clean("  the  knightmare  bbs ")
 	fmt.Println(name) // Output: Knightmare BBS
 
-    // Format the releaser name for use in a database cell.
+	// Format the releaser name for use in a database cell.
 	data := releaser.Cell("  the  knightmare  bbs ")
 	fmt.Println(data) // Output: KNIGHTMARE BBS
 
