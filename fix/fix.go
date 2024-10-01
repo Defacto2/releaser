@@ -88,8 +88,7 @@ func Connect(w string, position, last int) string {
 //	Cell(" Defacto2  demo  group. ") = "DEFACTO2 DEMO GROUP"
 //	Cell("the x bbs") = "X BBS"
 func Cell(s string) string {
-	const separator = ", "
-	groups := strings.Split(s, separator)
+	groups := strings.Split(s, ",")
 	for j, group := range groups {
 		g := strings.ToLower(strings.TrimSpace(group))
 		g = Amp(g)
@@ -105,7 +104,7 @@ func Cell(s string) string {
 		}
 		groups[j] = strings.Join(words, space)
 	}
-	return strings.ToUpper(strings.Join(groups, separator))
+	return strings.ToUpper(strings.Join(groups, ", "))
 }
 
 // Fix formats the w string based on its position in the words slice.
@@ -152,14 +151,11 @@ func Hyphen(w string) string {
 //	Format("hello world.") = "Hello World"
 //	Format("the 12am group.") = "The 12AM Group"
 func Format(s string) string {
-	const (
-		acronym   = 3
-		separator = ", "
-	)
+	const acronym = 3
 	if len(s) <= acronym {
 		return strings.ToUpper(s)
 	}
-	groups := strings.Split(s, separator)
+	groups := strings.Split(s, ",")
 	for j, group := range groups {
 		g := strings.ToLower(strings.TrimSpace(group))
 		g = Amp(g)
@@ -179,7 +175,7 @@ func Format(s string) string {
 		}
 		groups[j] = strings.Join(words, space)
 	}
-	return strings.Join(groups, separator)
+	return strings.Join(groups, ", ")
 }
 
 // PreSuffix formats the w string if a known prefix or suffix is found.
