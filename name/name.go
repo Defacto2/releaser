@@ -47,6 +47,12 @@ func (path Path) Valid() bool {
 // A List is a map of releasers and their well-known styled names.
 type List map[Path]string
 
+/*
+The following list of styled names is used to test the Path type and its methods.
+
+Stylized names should avoid using special characters that may get encoded in the URL
+or converted due to their special uses within the name.
+*/
 var names = List{
 	"2000-ad":                               "2000AD",
 	"79th-trac":                             "79th TRAC",
@@ -55,14 +61,14 @@ var names = List{
 	"binpda":                                "BiNPDA",
 	"coop":                                  "TDT / TRSi",
 	"core":                                  "CoRE",
-	"copycats-inc":                          "CopyCats, Inc",
+	"copycats-inc":                          "CopyCats Inc",
 	"coreutil":                              "The Utility Division of CORE",
 	"crackpl":                               "CrackPL",
 	"cybermail":                             "CyberMail",
 	"dbcdemo":                               "DBCDemo",
 	"dreadloc":                              "DREADLoC",
 	"dumptruck":                             "dumpTruck",
-	"defacto2net":                           "defacto2.net",
+	"defacto2net":                           "Defacto2 website",
 	"drm-ftp":                               "dRM FTP",
 	"dst-ftp":                               "dst FTP",
 	"dvniso":                                "DVNiSO",
@@ -98,7 +104,7 @@ var names = List{
 	"pouet":                                 "Pouët",
 	"risciso":                               "RISCiSO",
 	"sda-review":                            "SDA Review",
-	"seek-n-destroy":                        "Seek 'n Destroy",
+	"seek-n-destroy":                        "Seek n Destroy",
 	"sma-posse":                             "SMA Posse",
 	"shitonlygerman":                        "ShitOnlyGerman",
 	"software-pirates-inc":                  "Software Pirates Inc",
