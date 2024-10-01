@@ -15,9 +15,7 @@ linters:
   # Disable specific linters.
   disable:
     # deprecated
-    - nosnakecase
-    - ifshort
-    - scopelint
+    - gomnd
     # disabled
     - funlen            # should enable at a later stage. 
     - depguard          # don't need this.

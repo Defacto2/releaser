@@ -1,4 +1,5 @@
-// Package releaser provides string functions for cleaning and reformatting the names of release groups and partial URL paths.
+// Package releaser provides string functions for cleaning and reformatting
+// the names of release groups and partial URL paths.
 package releaser
 
 import (
@@ -74,7 +75,8 @@ func Clean(s string) string {
 //	Humanize("razor-1911-demo-ampersand-skillion") = "Razor 1911 Demo & Skillion"
 //	Humanize("north-american-pirate_phreak-association") = "North American Pirate-Phreak Association"
 //	Humanize("coop") = "TDT / TRSi"
-//	Humanize("united-software-association*fairlight") = "United Software Association + Fairlight PC Division" // special name
+//	Humanize("united-software-association*fairlight") =
+//		"United Software Association + Fairlight PC Division" // special name
 //	Humanize("razor-1911-demo*trsi") = "Razor 1911 Demo, TRSi"
 //	Humanize("razor-1911-demo#trsi") = "" // invalid # character
 func Humanize(path string) string {

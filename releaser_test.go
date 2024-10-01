@@ -235,13 +235,15 @@ func TestObfuscate(t *testing.T) {
 		{"multiple words", "the quick brown fox", "the-quick-brown-fox"},
 		{"special characters", "h3ll0 w0rld!", "h3ll0-w0rld"},
 		{"numbers only", "hello & world, foxes", "hello-ampersand-world*foxes"},
-		{"initalism", "nappa", "north-american-pirate_phreak-association"},
+		{"initialism", "nappa", "north-american-pirate_phreak-association"},
 		{"readme example 1", "The 12AM BBS.", "12am-bbs"},
 		{"readme example 2", "ACiD Productions", "acid-productions"},
 		{"readme example 3", "Razor 1911 Demo & Skillion", "razor-1911-demo-ampersand-skillion"},
 		{"readme example 4", "TDU-Jam!", "tdu_jam"},
-		{"readme example 5", "United Software Association + Fairlight PC Division",
-			"united-software-association*fairlight"},
+		{
+			"readme example 5", "United Software Association + Fairlight PC Division",
+			"united-software-association*fairlight",
+		},
 		{"readme example 6", "TDT", "the-dream-team"},
 		{"readme example 7", "fltdox", "fairlight-dox"},
 	}

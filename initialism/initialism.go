@@ -285,7 +285,8 @@ var initialisms = List{
 	"insane-creators-enterprise":           {"iCE"},
 	"international-network-of-crackers":    {"INC"},
 	"inc-europe": {
-		"INC", "International Network of Crackers"},
+		"INC", "International Network of Crackers",
+	},
 	"international-cracking-crew":     {"iCC"},
 	"international-software-alliance": {"ISA"},
 	"inc-documentation-division": {
@@ -442,7 +443,8 @@ var initialisms = List{
 	"reflux":                                  {"RLX"},
 	"relentless-pursuit-of-magnificence": {
 		"RPM",
-		"Relentlessly Pursuing Magnificence"},
+		"Relentlessly Pursuing Magnificence",
+	},
 	"republic-banana":                       {"RB"},
 	"request-to-send":                       {"RTS"},
 	"renaissance":                           {"RNS", "RSS"},
@@ -691,5 +693,4 @@ func Match(s string) []Path {
 		}
 	}
 	return matches
-
 }
