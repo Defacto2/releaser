@@ -91,6 +91,17 @@ func Humanize(path string) string {
 	return Clean(s)
 }
 
+// Index deobfuscates the URL path and applies [releaser.Humanize] so that it can
+// be stored in a database table as a releaser key and index in the database table.
+func Index(path string) string {
+	p := name.Path(strings.ToLower(path))
+	s, err := name.Humanize(p)
+	if err != nil {
+		return ""
+	}
+	return strings.ToUpper(s)
+}
+
 // Link deobfuscates the URL path and applies [releaser.Humanize].
 // In addition, the humanized name is formatted to be used as a link description.
 // If the URL path contains invalid characters then an empty string is returned.

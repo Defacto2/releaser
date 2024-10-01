@@ -38,6 +38,15 @@ func ExampleObfuscate() {
 	// Output: defacto2-demo-group
 }
 
+func ExampleIndex() {
+	fmt.Println(releaser.Index("united-software-association*fairlight"))
+	fmt.Println(releaser.Index("class*paradigm*razor-1911"))
+	fmt.Println(releaser.Index("coop"))
+	// Output: UNITED SOFTWARE ASSOCIATION, FAIRLIGHT
+	// CLASS, PARADIGM, RAZOR 1911
+	// COOP
+}
+
 func TestCell(t *testing.T) {
 	type args struct {
 		s string
