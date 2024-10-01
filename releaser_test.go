@@ -59,12 +59,12 @@ func TestCell(t *testing.T) {
 		{
 			"pair of groups",
 			args{"Group inc.,RAZOR TO 1911"},
-			"Group Inc,Razor to 1911",
+			"Group Inc, Razor to 1911",
 		},
 		{
 			"2nd group with a leading the",
 			args{"this is the group,the group is this"},
-			"This is the Group,The Group is This",
+			"This is the Group, The Group is This",
 		},
 		{"ordinal", args{"4TH dimension"}, "4th Dimension"},
 		{"ordinals", args{"4TH dimension, 5Th Dynasty"}, "4th Dimension, 5th Dynasty"},
@@ -72,10 +72,13 @@ func TestCell(t *testing.T) {
 		{
 			"mega-group",
 			args{"Lightforce,Pact,TRSi,Venom,Razor 1911,the System"},
-			"Lightforce,Pact,Trsi,Venom,Razor 1911,The System",
+			"Lightforce, Pact, Trsi, Venom, Razor 1911, The System",
 		},
-		{"example help", args{"the  Defacto2  demo  group"}, "The Defacto2 Demo Group"},
-		{"example help the", args{"  the x bbs  "}, "X BBS"},
+		{"coop", args{"coop"}, "COOP"},
+		{"example 1", args{"the  Defacto2  demo  group"}, "The Defacto2 Demo Group"},
+		{"example 2", args{"  the x bbs  "}, "X BBS"},
+		{"example 3", args{"TDT / TRSi"}, "TDT TRSI"},
+		{"example 4", args{"TDT,TRSi"}, "TDT, TRSI"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -106,12 +109,12 @@ func TestClean(t *testing.T) {
 		{
 			"pair of groups",
 			args{"Group inc.,RAZOR TO 1911"},
-			"Group Inc,Razor to 1911",
+			"Group Inc, Razor to 1911",
 		},
 		{
 			"2nd group with a leading the",
 			args{"this is the group,the group is this"},
-			"This is the Group,The Group is This",
+			"This is the Group, The Group is This",
 		},
 		{"ordinal", args{"4TH dimension"}, "4th Dimension"},
 		{"ordinals", args{"4TH dimension, 5Th Dynasty"}, "4th Dimension, 5th Dynasty"},
@@ -120,10 +123,13 @@ func TestClean(t *testing.T) {
 		{
 			"mega-group",
 			args{"Lightforce,Pact,TRSi,Venom,Razor 1911,the System"},
-			"Lightforce,Pact,Trsi,Venom,Razor 1911,The System",
+			"Lightforce, Pact, TRSi, Venom, Razor 1911, The System",
 		},
-		{"example help", args{"the  Defacto2  demo  group"}, "The Defacto2 Demo Group"},
-		{"example help the", args{"  the x bbs  "}, "X BBS"},
+		{"example 1", args{"the  Defacto2  demo  group"}, "The Defacto2 Demo Group"},
+		{"example 2", args{"  the x bbs  "}, "X BBS"},
+		{"example 3", args{"The X Ftp"}, "X FTP"},
+		{"example 4", args{"tdt / trsi"}, "Tdt Trsi"},
+		{"example 5", args{"tdt,trsi"}, "Tdt, TRSi"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -165,6 +171,8 @@ func TestHumanize(t *testing.T) {
 		{"2nd2none-bbs", "2ND2NONE BBS"},
 		{"class*paradigm*razor-1911", "Class, Paradigm, Razor 1911"},
 		{"down-town-bbs*bizare-bbs", "Down Town BBS, Bizare BBS"},
+		{"united-software-association*fairlight", "United Software Association + Fairlight PC Division"},
+		{"coop", "TDT / TRSi"},
 	}
 
 	for _, tc := range testCases {
@@ -192,6 +200,18 @@ func TestLink(t *testing.T) {
 			input:    "class*paradigm*razor-1911",
 			expected: "Class + Paradigm + Razor 1911",
 		},
+		{
+			input:    "united-software-association*fairlight",
+			expected: "United Software Association + Fairlight PC Division",
+		},
+		{
+			input:    "coop",
+			expected: "TDT / TRSi",
+		},
+		{
+			input:    "razor-1911-demo*trsi",
+			expected: "Razor 1911 Demo + TRSi",
+		},
 	}
 
 	for _, tc := range testCases {
@@ -210,16 +230,48 @@ func TestObfuscate(t *testing.T) {
 	}{
 		{"empty string", "", ""},
 		{"single word", "hello", "hello"},
+		{"coop", "coop", "coop"},
+		{"tdt/trsi", "tdt / trsi", "coop"},
 		{"multiple words", "the quick brown fox", "the-quick-brown-fox"},
 		{"special characters", "h3ll0 w0rld!", "h3ll0-w0rld"},
 		{"numbers only", "hello & world, foxes", "hello-ampersand-world*foxes"},
-		{"readme example", "the knightmare bbs", "knightmare-bbs"},
+		{"initalism", "nappa", "north-american-pirate_phreak-association"},
+		{"readme example 1", "The 12AM BBS.", "12am-bbs"},
+		{"readme example 2", "ACiD Productions", "acid-productions"},
+		{"readme example 3", "Razor 1911 Demo & Skillion", "razor-1911-demo-ampersand-skillion"},
+		{"readme example 4", "TDU-Jam!", "tdu_jam"},
+		{"readme example 5", "United Software Association + Fairlight PC Division",
+			"united-software-association*fairlight"},
+		{"readme example 6", "TDT", "the-dream-team"},
+		{"readme example 7", "fltdox", "fairlight-dox"},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := releaser.Obfuscate(tt.arg); got != tt.want {
 				t.Errorf("Obfuscate(%q) = %q, want %q", tt.arg, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestTitle(t *testing.T) {
+	tests := []struct {
+		name string
+		arg  string
+		want string
+	}{
+		{"empty string", "", ""},
+		{"standard", "razor 1911", "Razor 1911"},
+		{"casing", " _.=[   RaZoR 1911   ]=._ ", "Razor 1911"},
+		{"special name", "coop", "TDT / TRSi"},
+		{"special name", "tdt / trsi", "TDT / TRSi"},
+		{"initialism", "nappa", "North American Pirate-Phreak Association"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := releaser.Title(tt.arg); got != tt.want {
+				t.Errorf("Title(%q) = %q, want %q", tt.arg, got, tt.want)
 			}
 		})
 	}

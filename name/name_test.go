@@ -58,7 +58,7 @@ func ExampleList() {
 			fmt.Println(val)
 		}
 	}
-	// Output: defacto2.net
+	// Output: Defacto2 website
 }
 
 func ExampleUpper() {

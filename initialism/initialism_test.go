@@ -2,6 +2,7 @@ package initialism_test
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"testing"
 	"unicode"
@@ -39,6 +40,32 @@ func ExampleJoin() {
 	fmt.Println(initialism.Join("united-software-association")) // USA
 	// Output: FiRM, FRM
 	// USA
+}
+
+func TestMatch(t *testing.T) {
+	tests := []struct {
+		name string
+		s    string
+		want []string
+	}{
+		{"empty", "", []string{}},
+		{"no match", "some-unknown-random-bbs", []string{}},
+		{"df2", "df2", []string{"defacto2", "defacto2net"}},
+		{"razor", "RzR", []string{"razor-1911", "razor-1911-demo", "razordox"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := initialism.Match(tt.s)
+			c := make([]string, len(got))
+			for i, v := range got {
+				c[i] = string(v)
+			}
+			sort.Strings(c)
+			if !assert.Equal(t, tt.want, c) {
+				t.Errorf("Match() = %v, want %v", c, tt.want)
+			}
+		})
+	}
 }
 
 func TestInitialism(t *testing.T) {
