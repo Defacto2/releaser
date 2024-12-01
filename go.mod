@@ -3,8 +3,8 @@ module github.com/Defacto2/releaser
 go 1.22.7
 
 require (
-	github.com/stretchr/testify v1.9.0
-	golang.org/x/text v0.19.0
+	github.com/stretchr/testify v1.10.0
+	golang.org/x/text v0.20.0
 )
 
 require (
