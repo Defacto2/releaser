@@ -204,7 +204,14 @@ var uppercase = []string{
 	"zoo-ftp",
 }
 
-var specials = Special()
+var (
+	specials = Special()
+)
+
+const (
+	spacedAmpersand = " & " // " & " is a special case
+	spacedComma     = ", "  // ", " is a special case
+)
 
 // Special returns the list of styled names that use special mix or all lower or upper casing.
 func Special() List {
@@ -254,20 +261,13 @@ func Humanize(path Path) (string, error) {
 	if !path.Valid() {
 		return "", ErrInvalidPath
 	}
-
 	s := strings.ToLower(string(path))
-
-	re := regexp.MustCompile(`-ampersand-`)
-	s = re.ReplaceAllString(s, " & ")
-
-	re = regexp.MustCompile(`-`)
-	s = re.ReplaceAllString(s, " ")
-
-	re = regexp.MustCompile(`_`)
-	s = re.ReplaceAllString(s, "-")
-
-	re = regexp.MustCompile(`\*`)
-	s = re.ReplaceAllString(s, ", ")
+	// the order of these expressions is critical
+	// strings.replaceall is more performant than regex
+	s = strings.ReplaceAll(s, "-ampersand-", spacedAmpersand)
+	s = strings.ReplaceAll(s, "-", " ")
+	s = strings.ReplaceAll(s, "_", "-")
+	s = strings.ReplaceAll(s, "*", spacedComma)
 	return s, nil
 }
 
@@ -275,28 +275,18 @@ func Humanize(path Path) (string, error) {
 //
 // Example:
 //
-//	Obfuscate("ACiD Productions") = "acid-productions"
-//	Obfuscate("Razor 1911 Demo & Skillion") = "razor-1911-demo-ampersand-skillion"
-//	Obfuscate("TDU-Jam!") = "tdu_jam"
+//	string(Obfuscate("ACiD Productions")) = "acid-productions"
+//	string(Obfuscate("Razor 1911 Demo & Skillion")) = "razor-1911-demo-ampersand-skillion"
+//	string(Obfuscate("TDU-Jam!")) = "tdu_jam"
 func Obfuscate(name string) Path {
 	s := strings.TrimSpace(strings.ToLower(name))
-
 	re := regexp.MustCompile(`[^a-z0-9\&\-\,\ ]`)
 	s = re.ReplaceAllString(s, "")
-
 	// the order of these expressions is critical
-
-	re = regexp.MustCompile(`-`)
-	s = re.ReplaceAllString(s, "_")
-
-	re = regexp.MustCompile(` \& `)
-	s = re.ReplaceAllString(s, "-ampersand-")
-
-	re = regexp.MustCompile(`\, `)
-	s = re.ReplaceAllString(s, "*")
-
-	re = regexp.MustCompile(` `)
-	s = re.ReplaceAllString(s, "-")
-
+	// strings.replaceall is more performant than regex
+	s = strings.ReplaceAll(s, "-", "_")
+	s = strings.ReplaceAll(s, spacedAmpersand, "-ampersand-")
+	s = strings.ReplaceAll(s, spacedComma, "*")
+	s = strings.ReplaceAll(s, " ", "-")
 	return Path(s)
 }

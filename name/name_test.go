@@ -4,8 +4,25 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/Defacto2/releaser"
 	"github.com/Defacto2/releaser/initialism"
 	"github.com/Defacto2/releaser/name"
+)
+
+func listNames() []string {
+	l := len(ins)
+	n := make([]string, l)
+	i := 0
+	for k := range initialism.Initialisms() {
+		n[i] = releaser.Humanize(string(k))
+		i++
+	}
+	return n
+}
+
+var (
+	ins   = initialism.Initialisms()
+	names = listNames()
 )
 
 func ExampleHumanize() {
@@ -93,7 +110,7 @@ func ExamplePath_Valid() {
 
 func BenchmarkPath(b *testing.B) {
 	b.Run("Path", func(b *testing.B) {
-		for uri := range initialism.Initialisms() {
+		for uri := range ins {
 			path := name.Path(uri)
 			if !path.Valid() {
 				fmt.Println("invalid! " + path.String())
@@ -102,6 +119,14 @@ func BenchmarkPath(b *testing.B) {
 			if s := path.String(); s != "" {
 				fmt.Println(s)
 			}
+		}
+	})
+}
+
+func BenchmarkObfuscate(b *testing.B) {
+	b.Run("Obfuscate", func(b *testing.B) {
+		for i, n := range names {
+			fmt.Println(i, n, string(name.Obfuscate(n)))
 		}
 	})
 }
