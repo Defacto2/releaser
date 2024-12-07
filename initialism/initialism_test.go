@@ -16,12 +16,6 @@ func ExampleInitialism() {
 	// Output: [DF2 DF]
 }
 
-func BenchmarkInitialism(b *testing.B) {
-	b.Run("Initialism", func(b *testing.B) {
-		fmt.Println(initialism.Initialism("defacto2"))
-	})
-}
-
 func ExampleInitialisms() {
 	const find = "USA"
 	for k, v := range initialism.Initialisms() {
@@ -35,29 +29,9 @@ func ExampleInitialisms() {
 	// Output: Found USA in united-software-association
 }
 
-func BenchmarkInitialisms(b *testing.B) {
-	b.Run("Initialisms", func(b *testing.B) {
-		const find = "USA"
-		for k, v := range initialism.Initialisms() {
-			for _, x := range v {
-				if x == find {
-					fmt.Printf("Found %v in %v\n", find, k)
-					return
-				}
-			}
-		}
-	})
-}
-
 func ExampleIsInitialism() {
 	fmt.Println(initialism.IsInitialism("defacto2"))
 	// Output: true
-}
-
-func BenchmarkIsInitialism(b *testing.B) {
-	b.Run("IsInitialism", func(b *testing.B) {
-		fmt.Println(initialism.IsInitialism("defacto2"))
-	})
 }
 
 func ExampleJoin() {
@@ -92,6 +66,32 @@ func TestMatch(t *testing.T) {
 			}
 		})
 	}
+}
+
+func BenchmarkIsInitialism(b *testing.B) {
+	b.Run("IsInitialism", func(b *testing.B) {
+		fmt.Println(initialism.IsInitialism("defacto2"))
+	})
+}
+
+func BenchmarkInitialism(b *testing.B) {
+	b.Run("Initialism", func(b *testing.B) {
+		fmt.Println(initialism.Initialism("defacto2"))
+	})
+}
+
+func BenchmarkInitialisms(b *testing.B) {
+	b.Run("Initialisms", func(b *testing.B) {
+		const find = "USA"
+		for k, v := range initialism.Initialisms() {
+			for _, x := range v {
+				if x == find {
+					fmt.Printf("Found %v in %v\n", find, k)
+					return
+				}
+			}
+		}
+	})
 }
 
 func BenchmarkMatch(b *testing.B) {

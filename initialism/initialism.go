@@ -40,8 +40,11 @@ const (
 // All initialisms should be in their stylized form and can include
 // initialisms, acronyms, alternative spellings.
 //
-//   - Any case formatting should not be done here, they go in the name package.
+//   - Any casing and formatting should *not* be done here, those go in the [releaser/name] package.
 //   - This is a public repo so commonsense problematic named groups or initialisms should not be listed.
+//   - In Go, the order of the List map keys is randomised and has no performance impact.
+//
+// [releaser/name]: https://github.com/Defacto2/releaser/name
 var initialisms = List{
 	"2000ad":                                 {"2KAD", "2000 AD"},
 	"8088-state":                             {"8088"},
