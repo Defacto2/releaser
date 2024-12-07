@@ -129,6 +129,7 @@ var names = List{
 	"unreal-magazine":                       "UnReal Magazine",
 	"united-software-association*fairlight": "United Software Association + Fairlight PC Division",
 	"vdr-lake-ftp":                          "VDR Lake FTP",
+	"well-release-anything":                 "We'll Release Anything",
 	"xdb":                                   "X-db",
 	"xquizit-ftp":                           "XquiziT FTP",
 }
