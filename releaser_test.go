@@ -6,6 +6,23 @@ import (
 	"testing"
 
 	"github.com/Defacto2/releaser"
+	"github.com/Defacto2/releaser/initialism"
+)
+
+func listNames() []string {
+	l := len(ins)
+	n := make([]string, l)
+	i := 0
+	for k := range initialism.Initialisms() {
+		n[i] = releaser.Humanize(string(k))
+		i++
+	}
+	return n
+}
+
+var (
+	ins   = initialism.Initialisms()
+	names = listNames()
 )
 
 func ExampleCell() {
@@ -45,6 +62,78 @@ func ExampleIndex() {
 	// Output: UNITED SOFTWARE ASSOCIATION, FAIRLIGHT
 	// CLASS, PARADIGM, RAZOR 1911
 	// COOP
+}
+
+func BenchmarkCell(b *testing.B) {
+	b.Run("Cell", func(b *testing.B) {
+		for _, n := range names {
+			if s := releaser.Cell(n); s != "" {
+				fmt.Println(s)
+			}
+		}
+	})
+}
+
+func BenchmarkClean(b *testing.B) {
+	b.Run("Clean", func(b *testing.B) {
+		for _, n := range names {
+			if s := releaser.Clean(n); s != "" {
+				fmt.Println(s)
+			}
+		}
+	})
+}
+
+func BenchmarkHumanize(b *testing.B) {
+	b.Run("Humanize", func(b *testing.B) {
+		for n := range ins {
+			if s := releaser.Humanize(string(n)); s != "" {
+				fmt.Println(s)
+			}
+		}
+	})
+}
+
+func BenchmarkIndex(b *testing.B) {
+	b.Run("Index", func(b *testing.B) {
+		for n := range ins {
+			if s := releaser.Index(string(n)); s != "" {
+				fmt.Println(s)
+			}
+		}
+	})
+}
+
+func BenchmarkLink(b *testing.B) {
+	b.Run("Link", func(b *testing.B) {
+		for uri := range ins {
+			s := releaser.Index(string(uri))
+			if title := releaser.Link(s); title != "" {
+				fmt.Println(title)
+			}
+		}
+	})
+}
+
+func BenchmarkObfuscate(b *testing.B) {
+	b.Run("Obfuscate", func(b *testing.B) {
+		for n := range ins {
+			if s := releaser.Obfuscate(string(n)); s != "" {
+				fmt.Println(s)
+			}
+		}
+	})
+}
+
+func BenchmarkTitle(b *testing.B) {
+	b.Run("Title", func(b *testing.B) {
+		for uri := range ins {
+			s := releaser.Index(string(uri))
+			if title := releaser.Title(s); title != "" {
+				fmt.Println(title)
+			}
+		}
+	})
 }
 
 func TestCell(t *testing.T) {

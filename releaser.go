@@ -10,6 +10,11 @@ import (
 	"github.com/Defacto2/releaser/name"
 )
 
+var (
+	ins = initialism.Initialisms() // cache the initialisms
+	sp  = name.Special()           // cache the special names
+)
+
 // Cell formats the string to be used as a cell in a database table.
 //
 //   - The removal of duplicate spaces
@@ -141,14 +146,11 @@ func Obfuscate(s string) string {
 	x := s
 	x = fix.StripStart(x)
 	x = strings.TrimSpace(x)
-
-	sp := name.Special()
 	for uri, special := range sp {
 		if strings.EqualFold(x, special) {
 			return string(uri)
 		}
 	}
-	ins := initialism.Initialisms()
 	for uri, initialisms := range ins {
 		for _, val := range initialisms {
 			if strings.EqualFold(x, val) {
@@ -156,7 +158,6 @@ func Obfuscate(s string) string {
 			}
 		}
 	}
-
 	x = fix.StripChars(x)
 	x = fix.TrimThe(x)
 	x = fix.TrimSP(x)
@@ -178,16 +179,14 @@ func Title(s string) string {
 	x := s
 	x = fix.StripStart(x)
 	x = strings.TrimSpace(x)
-	sp := name.Special()
 	for _, special := range sp {
 		if strings.EqualFold(x, special) {
 			return special
 		}
 	}
-	ins := initialism.Initialisms()
 	for uri, initialisms := range ins {
-		for _, val := range initialisms {
-			if strings.EqualFold(x, val) {
+		for _, initialism := range initialisms {
+			if strings.EqualFold(x, initialism) {
 				return Humanize(string(uri))
 			}
 		}
@@ -195,6 +194,6 @@ func Title(s string) string {
 	x = fix.StripChars(x)
 	x = fix.TrimThe(x)
 	x = fix.TrimSP(x)
-	u := Obfuscate(x)
-	return Humanize(string(u))
+	c := name.Obfuscate(x)
+	return Humanize(string(c))
 }

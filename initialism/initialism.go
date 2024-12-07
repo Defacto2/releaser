@@ -864,10 +864,10 @@ func Join(path Path) string {
 // Match returns the list of initialisms that match the given string.
 func Match(s string) []Path {
 	var matches []Path
-	for k, vals := range initialisms {
-		for _, v := range vals {
-			if strings.EqualFold(v, s) {
-				matches = append(matches, k)
+	for uri, vals := range initialisms {
+		for _, val := range vals {
+			if strings.EqualFold(val, s) {
+				matches = append(matches, uri)
 			}
 		}
 	}

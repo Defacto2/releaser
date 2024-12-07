@@ -24,9 +24,8 @@ type Path string
 //	name.Path("razor-1911").String() = "" // unlisted
 func (path Path) String() string {
 	p := Path(strings.ToLower(string(path)))
-	list := Special()
-	if _, ok := list[p]; ok {
-		return list[p]
+	if _, ok := specials[p]; ok {
+		return specials[p]
 	}
 	return ""
 }
@@ -204,6 +203,8 @@ var uppercase = []string{
 	"x_ess",
 	"zoo-ftp",
 }
+
+var specials = Special()
 
 // Special returns the list of styled names that use special mix or all lower or upper casing.
 func Special() List {

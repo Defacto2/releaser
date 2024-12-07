@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/Defacto2/releaser/initialism"
 	"github.com/Defacto2/releaser/name"
 )
 
@@ -88,6 +89,21 @@ func ExamplePath_Valid() {
 	fmt.Println(name.Path("Defacto2").Valid())
 	// Output: true
 	// false
+}
+
+func BenchmarkPath(b *testing.B) {
+	b.Run("Path", func(b *testing.B) {
+		for uri := range initialism.Initialisms() {
+			path := name.Path(uri)
+			if !path.Valid() {
+				fmt.Println("invalid! " + path.String())
+				continue
+			}
+			if s := path.String(); s != "" {
+				fmt.Println(s)
+			}
+		}
+	})
 }
 
 func TestSpecial(t *testing.T) {
