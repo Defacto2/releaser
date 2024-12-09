@@ -36,6 +36,7 @@ const (
 	rampage = "revolutionary-art-masters-pummeling-art-groups-everywhere"
 	scud    = "sound-creators-and-unfailing-digitalizers"
 	hate    = "highly-artistically-talented-enterprises"
+	tsep    = "twilight-software-engineering-and-pirating"
 )
 
 // All initialisms should be in their stylized form and can include
@@ -320,7 +321,7 @@ var initialisms = List{
 	"fawkes":                                 {"FWK"},
 	"fasiso":                                 {"FAS"},
 	"file-propulsion-system":                 {"FPS"},
-	"friendship":                             {"FRD"},
+	"friendship":                             {"FRD", "Friends"},
 	"federation-of-free-traders":             {"FOFT"},
 	"fyllecell":                              {"FLC"},
 	"future-ansi-creations":                  {"FAiC"},
@@ -425,6 +426,7 @@ var initialisms = List{
 	"linezer0":                               {"Lz0", "Linezero"},
 	"live-now-die-later":                     {"LnDL"},
 	"lockless":                               {"LKL"},
+	"legion-of-the-etherial":                 {"LOTE"},
 	"local-courier-system":                   {"LCS"},
 	"living-organisms-on-mars":               {"LOOM"},
 	"los-angeles-sysops-alliance":            {"LASA"},
@@ -556,7 +558,7 @@ var initialisms = List{
 	"reality-check-network":                  {"RCN"},
 	"real-time-pirates":                      {"RTP"},
 	"rebels":                                 {"RBS"},
-	"rebels*2000ad":                          {"R2"},
+	"r2":                                     {"R2", "RTWO"},
 	"recoil":                                 {"RCL"},
 	"red-sector-inc":                         {"RSI"},
 	"red-green-blue":                         {"RGB"},
@@ -617,6 +619,7 @@ var initialisms = List{
 	"sinister":                               {"SiN"},
 	"slaves-of-pain":                         {"SoP"},
 	"smokers-in-krime":                       {"SiK"},
+	"smegma":                                 {"SMG"},
 	"society-of-sharing":                     {"SOS"},
 	"society-of-suckers":                     {"SOS"},
 	"sodom":                                  {"SDM"},
@@ -645,6 +648,7 @@ var initialisms = List{
 	"sma-posse":                              {"$MA"},
 	"the-syndicate":                          {"$ynd", "The $yndicate", "The $yndacite"},
 	"talent-entertainment":                   {"TLN"},
+	"tdu_jam":                                {"tdujam"},
 	"team-edge":                              {"EDGE"},
 	"team-technotrogens":                     {"TT3", "Team T3"},
 	"technobrains":                           {"TCB"},
@@ -713,6 +717,7 @@ var initialisms = List{
 	"the-mental-midgets":                     {"TMM"},
 	"the-nameless-ones":                      {"TNO"},
 	"the-naked-truth-magazine":               {"NTM"},
+	"the-new-order-of-sacro_elite":           {"NOOSE"},
 	"the-net-monkey-weekly-report":           {"TNMWR"},
 	"the-north-west-connection":              {"TNWC"},
 	"the-nova-team":                          {"TNT"},
@@ -738,6 +743,7 @@ var initialisms = List{
 	"the-space-pigs":                         {"SP"},
 	"the-stealth-pirate-network":             {"TSPN"},
 	"the-silents":                            {"TSL"},
+	"the-silent-terror":                      {"TST"},
 	"the-software-review":                    {"TSR"},
 	"the-software-innovation-network":        {"SIN"},
 	"the-sinister-syndicate":                 {"TSS"},
@@ -771,9 +777,11 @@ var initialisms = List{
 	"twin-sectors-inc":                       {"TSI"},
 	"tyranny":                                {"TYR"},
 	"twenty-one-twelve-bbs":                  {"2112", "²''²"},
+	tsep:                                     {"TSEP"},
 	"turbo-nutter-kiwi-bastards":             {"TNKB", "KiWi"},
 	"ultra-tech":                             {"UT"},
 	"ultra-tech*electro-magnetic-crackers":   {"UT-EMC"},
+	"unified-legendary-traders-rising-again": {"ULTRA"},
 	"ultra-force":                            {"UF", "Ultraforce"},
 	"utilities-in-demand":                    {"UiD"},
 	"under-seh-team":                         {"UST"},
@@ -795,6 +803,7 @@ var initialisms = List{
 	"underground-kidz":                       {"UK"},
 	"underground-pirating-syndicate":         {"UPS"},
 	"unleashed":                              {"UNL"},
+	"underground-cracking-syndicate":         {"UCS"},
 	"unpacking-gods":                         {"UG"},
 	"untouchables":                           {"UNT"},
 	"untouchable-art":                        {"UNT"},
@@ -816,6 +825,7 @@ var initialisms = List{
 	"worldwide-applications-release-system":  {"WARES"},
 	"world-domination-force":                 {"WDF"},
 	"wave":                                   {"The Wave", "CNC"},
+	"western-area-pirates":                   {"WARP"},
 	"warrior":                                {"WAR"},
 	"wdyl-wtn":                               {"WDYL"},
 	"west-coast-cracking-production":         {"WCCP"},
