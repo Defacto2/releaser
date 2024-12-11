@@ -761,6 +761,7 @@ var initialisms = List{
 	"the-week-in-warez":                      {"WWN"},
 	"the-wondertwins":                        {"TWT"},
 	"thg-fx":                                 {"The Humble Guys FX"},
+	"tkc*crackers-in-action":                 {"tKC", "CiA"},
 	"toads":                                  {"T.O.A.D.S."},
 	"toxic":                                  {"TOX"},
 	"trading-and-trading-international-crew": {"TATiC"},
