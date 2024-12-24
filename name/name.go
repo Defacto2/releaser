@@ -139,6 +139,7 @@ var names = List{
 	"ypogeios":                              "YPOGEiOS",
 	"xdb":                                   "X-db",
 	"xquizit-ftp":                           "XquiziT FTP",
+	"pnx":                                   "Cyber Angels Phoenix",
 }
 
 var lowercase = []string{
@@ -191,6 +192,7 @@ var uppercase = []string{
 	"ps5b",
 	"psi-bbs",
 	"qed-bbs",
+	"reno",
 	"scum",
 	"swag",
 	"scf-ftp",
@@ -201,6 +203,8 @@ var uppercase = []string{
 	"tbb-ftp",
 	"tcsm-bbs",
 	"tfz-2-bbs",
+	"triad",
+	"toads",
 	"tog-ftp",
 	"top-ftp",
 	"tph-qqt",
@@ -212,6 +216,7 @@ var uppercase = []string{
 	"u4ea-ftp",
 	"x_ess",
 	"zoo-ftp",
+	"phoenix",
 }
 
 var (
