@@ -22,26 +22,37 @@ import (
 )
 
 func main() {
-	// Clean the the string releaser name.
-	name := releaser.Clean("  the  knightmare  bbs ")
-	fmt.Println(name) // Output: Knightmare BBS
+	s := "  the  knightmare  bbs "
 
-	// Format the releaser name for use in a database cell.
-	data := releaser.Cell("  the  knightmare  bbs ")
-	fmt.Println(data) // Output: KNIGHTMARE BBS
+	// Clean the s releaser name
+	// Output: Knightmare BBS
+	fmt.Println(releaser.Clean(s))
 
-	// Format the releaser name into a URL path.
-	urlPath := releaser.Obfuscate("the knightmare bbs")
-	fmt.Println(urlPath) // Output: knightmare-bbs
+	// Format the s releaser name for use in a database cell
+	// Output: KNIGHTMARE BBS
+	fmt.Println(releaser.Cell(s)) 
 
-	// Format the releaser name into a human readable string.
-	const url1 = "https://defacto2.net/g/knightmare-bbs"
-	name = releaser.Humanize(path.Base(url1))
-	fmt.Println(name) // Output: Knightmare BBS
 
-	// Format the releaser names into a HTML link description.
-	const url2 = "https://defacto2.net/g/class*paradigm*razor-1911"
-	name = releaser.Link(path.Base(url2))
-	fmt.Println(name) // Output: Class + Paradigm + Razor 1911
+	s = "the knightmare bbs"
+
+	// Format the s releaser name into a URL path.
+	// Output: knightmare-bbs
+	fmt.Println(releaser.Obfuscate(s))
+
+	// Output: https://defacto2.net/g/knightmare-bbs
+	result, _ := url.JoinPath("https://defacto2.net", "g", releaser.Obfuscate(s))
+	fmt.Println(result)
+
+	// Format the URL into a human readable string
+	// Output: Knightmare BBS
+	fmt.Println(releaser.Humanize(path.Base(result)))
+
+
+	coop := "class*paradigm*razor-1911"
+
+	// Format the cooperation releaser names into a HTML link description
+	// Output: Class + Paradigm + Razor 1911
+	result, _ := url.JoinPath("https://defacto2.net", "g", coop)
+	fmt.Println(releaser.Link(path.Base(result))) 
 }
 ```
