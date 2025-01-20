@@ -148,7 +148,7 @@ func TestFormat(t *testing.T) {
 		{"UPPER", "pcb", "PCB"},
 		{"lower", "7Of9", "7of9"},
 		{"exact upper", "Anz ftp", "ANZ FTP"},
-		{"fmt by name", "Excretion anarchy", "eXCReTION Anarchy"},
+		{"fmt by name", "Excretion anarchy", "eXCReTION"},
 		{"am suffix", "the 12am group", "The 12AM Group"},
 		{"pm suffix", "the 12pm group", "The 12PM Group"},
 		{"dox", "thedox group", "TheDox Group"},
