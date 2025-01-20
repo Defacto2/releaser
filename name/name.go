@@ -53,6 +53,10 @@ Stylized names should avoid using special characters that may get encoded in the
 or converted due to their special uses within the name.
 */
 var names = List{
+	"ninja":                                 "NiNJA",
+	"orgasming-gaming-magazine":             "orGAsMING Gaming Magazine",
+	"gameboycolor-world-charts":             "GameBoyColor World Charts",
+	"email-compilation":                     "e.mail compilation",
 	"2000-ad":                               "2000AD",
 	"79th-trac":                             "79th TRAC",
 	"acid-productions":                      "ACiD Productions",
@@ -76,7 +80,7 @@ var names = List{
 	"epic":                                  "EPiC",
 	"esp-pirates":                           "ESP Pirates",
 	"extreme-net":                           "ExtremeNET",
-	"excretion-anarchy":                     "eXCReTION Anarchy",
+	"excretion-anarchy":                     "eXCReTION",
 	"fx2-graphics-group":                    "Fx/2 Graphics Group",
 	"hashx":                                 "Hash X",
 	"htbzine":                               "HTBZine",
@@ -140,14 +144,36 @@ var names = List{
 	"xdb":                                   "X-db",
 	"xquizit-ftp":                           "XquiziT FTP",
 	"pnx":                                   "Cyber Angels Phoenix",
+	"cpi-newsletter":                        "CPI Newsletter",
+	"warez":                                 "WareZ",
+	"mai-review":                            "MAi Review",
+	"nuke-infojournal":                      "[NuKE] InfoJournal",
+	"tsan-newsletter":                       "TSAN Newsletter",
+	"vip-magazine":                          "ViP Magazine",
+	"dmz-review":                            "DMZ Review",
+	"mr-bane-800-number-list":               "Mr. Bane's 800 Number List",
+	"ware-report":                           "WARE Report",
+	"apex-reviewers":                        "APEX Reviewers",
+	"globelist-world-bbs-listing":           "GlobeList World BBS Listing",
+	"spetznas":                              "SpetzNas",
+	"insomnia-emag":                         "iNSOMNiA E-Mag",
+	"nofear-news":                           "NOFEAR News",
+	"ram-newszine":                          "RAM Newszine",
+	"scam-magazine":                         "SCAM! Magazine",
 }
 
 var lowercase = []string{
 	"mci-escapes",
 	"scenet",
+	"notwikipedia",
 }
 
 var uppercase = []string{
+	"edge",
+	"ameriboards",
+	"nuke",
+	"bbslst",
+	"thhg",
 	"2nd2none-bbs",
 	"3wa-bbs",
 	"acb-bbs",
