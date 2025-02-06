@@ -160,6 +160,8 @@ var names = List{
 	"nofear-news":                           "NOFEAR News",
 	"ram-newszine":                          "RAM Newszine",
 	"scam-magazine":                         "SCAM! Magazine",
+	"ntt":                                   "ENTiTY",
+	"radiant":                               "RADiANT",
 }
 
 var lowercase = []string{
