@@ -162,6 +162,10 @@ var names = List{
 	"scam-magazine":                         "SCAM! Magazine",
 	"ntt":                                   "ENTiTY",
 	"radiant":                               "RADiANT",
+	"genesis-ppe":                           "Genesis PPE",
+	"genesis-404":                           "Genesis (404)",
+	"poison":                                "POiSON",
+	"natosoft":                              "NATOsoft",
 }
 
 var lowercase = []string{
@@ -171,6 +175,7 @@ var lowercase = []string{
 }
 
 var uppercase = []string{
+	"ytmar",
 	"edge",
 	"ameriboards",
 	"nuke",
