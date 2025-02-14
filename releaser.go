@@ -3,6 +3,8 @@
 package releaser
 
 import (
+	"maps"
+	"slices"
 	"strings"
 
 	"github.com/Defacto2/releaser/fix"
@@ -10,10 +12,11 @@ import (
 	"github.com/Defacto2/releaser/name"
 )
 
-var (
-	ins = initialism.Initialisms() // cache the initialisms
-	sp  = name.Special()           // cache the special names
-)
+// initialisms are a cache of thatgreatly improves benchmark performance.
+var initialisms = initialism.Initialisms() //nolint:gochecknoglobals
+
+// specials are a cache of thatgreatly improves benchmark performance.
+var specials = name.Special() //nolint:gochecknoglobals
 
 // Cell formats the string to be used as a cell in a database table.
 //
@@ -32,8 +35,7 @@ var (
 //	Cell("TDT / TRSi") = "TDT TRSI"
 //	Cell("TDT,TRSi") = "TDT, TRSI"
 func Cell(s string) string {
-	x := s
-	x = fix.StripChars(x)
+	x := fix.StripChars(s)
 	x = fix.StripStart(x)
 	x = strings.TrimSpace(x)
 	x = fix.TrimThe(x)
@@ -60,8 +62,7 @@ func Cell(s string) string {
 //	Clean("tdt / trsi") = "Tdt Trsi" // behaves as a single group
 //	Clean("tdt,trsi") = "Tdt, TRSi"  // behaves as two groups
 func Clean(s string) string {
-	x := s
-	x = fix.StripChars(x)
+	x := fix.StripChars(s)
 	x = fix.StripStart(x)
 	x = strings.TrimSpace(x)
 	x = fix.TrimThe(x)
@@ -143,17 +144,16 @@ func Link(path string) string {
 //	Obfuscate("TDT / TRSi") = "coop"
 //	Obfuscate("United Software Association + Fairlight PC Division") = "united-software-association*fairlight"
 func Obfuscate(s string) string {
-	x := s
-	x = fix.StripStart(x)
+	x := fix.StripStart(s)
 	x = strings.TrimSpace(x)
-	for uri, special := range sp {
+	for uri, special := range maps.All(specials) {
 		if strings.EqualFold(x, special) {
 			return string(uri)
 		}
 	}
-	for uri, initialisms := range ins {
-		for _, val := range initialisms {
-			if strings.EqualFold(x, val) {
+	for uri, values := range maps.All(initialisms) {
+		for value := range slices.Values(values) {
+			if strings.EqualFold(x, value) {
 				return string(uri)
 			}
 		}
@@ -176,17 +176,16 @@ func Obfuscate(s string) string {
 //	Title("tdt / trsi") = "TDT / TRSi"
 //	Title("nappa") = "North American Pirate-Phreak Association"
 func Title(s string) string {
-	x := s
-	x = fix.StripStart(x)
+	x := fix.StripStart(s)
 	x = strings.TrimSpace(x)
-	for _, special := range sp {
+	for _, special := range specials {
 		if strings.EqualFold(x, special) {
 			return special
 		}
 	}
-	for uri, initialisms := range ins {
-		for _, initialism := range initialisms {
-			if strings.EqualFold(x, initialism) {
+	for uri, values := range maps.All(initialisms) {
+		for value := range slices.Values(values) {
+			if strings.EqualFold(x, value) {
 				return Humanize(string(uri))
 			}
 		}

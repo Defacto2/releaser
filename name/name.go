@@ -7,6 +7,7 @@ package name
 import (
 	"errors"
 	"regexp"
+	"slices"
 	"strings"
 )
 
@@ -24,7 +25,7 @@ type Path string
 //	name.Path("razor-1911").String() = "" // unlisted
 func (path Path) String() string {
 	p := Path(strings.ToLower(string(path)))
-	if _, ok := specials[p]; ok {
+	if _, match := specials[p]; match {
 		return specials[p]
 	}
 	return ""
@@ -52,255 +53,261 @@ The following list of styled names is used to test the Path type and its methods
 Stylized names should avoid using special characters that may get encoded in the URL
 or converted due to their special uses within the name.
 */
-var names = List{
-	"ninja":                                 "NiNJA",
-	"orgasming-gaming-magazine":             "orGAsMING Gaming Magazine",
-	"gameboycolor-world-charts":             "GameBoyColor World Charts",
-	"email-compilation":                     "e.mail compilation",
-	"2000-ad":                               "2000AD",
-	"79th-trac":                             "79th TRAC",
-	"acid-productions":                      "ACiD Productions",
-	"biased":                                "bIASED",
-	"binpda":                                "BiNPDA",
-	"coop":                                  "TDT / TRSi",
-	"core":                                  "CoRE",
-	"copycats-inc":                          "CopyCats Inc",
-	"coreutil":                              "The Utility Division of CORE",
-	"crackpl":                               "CrackPL",
-	"cybermail":                             "CyberMail",
-	"dbcdemo":                               "DBCDemo",
-	"dmacks-lost-classics":                  "Dmack's Lost Classics",
-	"dreadloc":                              "DREADLoC",
-	"dumptruck":                             "dumpTruck",
-	"defacto2net":                           "Defacto2 website",
-	"drm-ftp":                               "dRM FTP",
-	"dst-ftp":                               "dst FTP",
-	"dvniso":                                "DVNiSO",
-	"dvtiso":                                "DVTiSO",
-	"epic":                                  "EPiC",
-	"esp-pirates":                           "ESP Pirates",
-	"extreme-net":                           "ExtremeNET",
-	"excretion-anarchy":                     "eXCReTION",
-	"fx2-graphics-group":                    "Fx/2 Graphics Group",
-	"hashx":                                 "Hash X",
-	"htbzine":                               "HTBZine",
-	"linezer0":                              "LineZer0",
-	"lucid":                                 "LuCiD",
-	"ice-weekly-newsletter":                 "iCE Weekly Newsletter",
-	"icon":                                  "iCON",
-	"imars":                                 "iMARS",
-	"jrp":                                   "Japanese Release Project",
-	"oneup":                                 "OneUp",
-	"orion":                                 "ORiON",
-	"mmi":                                   "MMi",
-	"mp2k":                                  "MP2K",
-	"nc_17":                                 "NC-17",
-	"nicjr":                                 "NicJr",
-	"noclass":                               "NoClass",
-	"nofx-bbs":                              "NoFX BBS",
-	"nukethis":                              "NukeThis",
-	"numbers":                               "The Numbers",
-	"nrp":                                   "NoRePack",
-	"paradox":                               "Paradox",
-	"phoenixbbs":                            "Phoenix BBS",
-	"pjs-tower-bbs":                         "PJs Tower BBS",
-	"playme":                                "PlayMe",
-	"pocketheaven":                          "PocketHeaven",
-	"psico":                                 "PSiCO",
-	"ptl-club":                              "PTL Club",
-	"pouet":                                 "Pouët",
-	"risciso":                               "RISCiSO",
-	"sda-review":                            "SDA Review",
-	"seek-n-destroy":                        "Seek n Destroy",
-	"sma-posse":                             "SMA Posse",
-	"shitonlygerman":                        "ShitOnlyGerman",
-	"software-pirates-inc":                  "Software Pirates Inc",
-	"sprint":                                "$print",
-	"surprise-productions":                  "Surprise! Productions",
-	"syndicate":                             "$yndicate",
-	"r2":                                    "Rebels + 2000AD",
-	"razordox":                              "RazorDOX",
-	"rhvid":                                 "RHViD",
-	"rzsoft-ftp":                            "RZSoft FTP",
-	"tkc*crackers-in-action":                "tKC/Crackers in Action",
-	"tdu_jam":                               "TDU Jam!",
-	"team-xtx":                              "Team XTX",
-	"thg-fx":                                "THG-FX",
-	"tft-team":                              "TFT Team",
-	"tpinc":                                 "TPiNC",
-	"trsi":                                  "TRSi",
-	"tristar-ampersand-red-sector-inc":      "Tristar & Red Sector Inc",
-	"the-dvdr-releasing-standards":          "The DVDR Releasing Standards",
-	"the-firm":                              "The FiRM",
-	"tsg-ftp":                               "tSG FTP",
-	"tport":                                 "tPORt",
-	"underpl":                               "UnderPL",
-	"unreal-magazine":                       "UnReal Magazine",
-	"united-software-association*fairlight": "United Software Association + Fairlight PC Division",
-	"vdr-lake-ftp":                          "VDR Lake FTP",
-	"well-release-anything":                 "We'll Release Anything",
-	"uniq":                                  "UNiQ",
-	"ypogeios":                              "YPOGEiOS",
-	"xdb":                                   "X-db",
-	"xquizit-ftp":                           "XquiziT FTP",
-	"pnx":                                   "Cyber Angels Phoenix",
-	"cpi-newsletter":                        "CPI Newsletter",
-	"warez":                                 "WareZ",
-	"mai-review":                            "MAi Review",
-	"nuke-infojournal":                      "[NuKE] InfoJournal",
-	"tsan-newsletter":                       "TSAN Newsletter",
-	"vip-magazine":                          "ViP Magazine",
-	"dmz-review":                            "DMZ Review",
-	"mr-bane-800-number-list":               "Mr. Bane's 800 Number List",
-	"ware-report":                           "WARE Report",
-	"apex-reviewers":                        "APEX Reviewers",
-	"globelist-world-bbs-listing":           "GlobeList World BBS Listing",
-	"spetznas":                              "SpetzNas",
-	"insomnia-emag":                         "iNSOMNiA E-Mag",
-	"nofear-news":                           "NOFEAR News",
-	"ram-newszine":                          "RAM Newszine",
-	"scam-magazine":                         "SCAM! Magazine",
-	"ntt":                                   "ENTiTY",
-	"radiant":                               "RADiANT",
-	"genesis-ppe":                           "Genesis PPE",
-	"genesis-404":                           "Genesis (404)",
-	"poison":                                "POiSON",
-	"natosoft":                              "NATOsoft",
+
+// Names returns the list of well-known styled names.
+func Names() List {
+	return List{
+		"ninja":                                 "NiNJA",
+		"orgasming-gaming-magazine":             "orGAsMING Gaming Magazine",
+		"gameboycolor-world-charts":             "GameBoyColor World Charts",
+		"email-compilation":                     "e.mail compilation",
+		"2000-ad":                               "2000AD",
+		"79th-trac":                             "79th TRAC",
+		"acid-productions":                      "ACiD Productions",
+		"biased":                                "bIASED",
+		"binpda":                                "BiNPDA",
+		"coop":                                  "TDT / TRSi",
+		"core":                                  "CoRE",
+		"copycats-inc":                          "CopyCats Inc",
+		"coreutil":                              "The Utility Division of CORE",
+		"crackpl":                               "CrackPL",
+		"cybermail":                             "CyberMail",
+		"dbcdemo":                               "DBCDemo",
+		"dmacks-lost-classics":                  "Dmack's Lost Classics",
+		"dreadloc":                              "DREADLoC",
+		"dumptruck":                             "dumpTruck",
+		"defacto2net":                           "Defacto2 website",
+		"drm-ftp":                               "dRM FTP",
+		"dst-ftp":                               "dst FTP",
+		"dvniso":                                "DVNiSO",
+		"dvtiso":                                "DVTiSO",
+		"epic":                                  "EPiC",
+		"esp-pirates":                           "ESP Pirates",
+		"extreme-net":                           "ExtremeNET",
+		"excretion-anarchy":                     "eXCReTION",
+		"fx2-graphics-group":                    "Fx/2 Graphics Group",
+		"hashx":                                 "Hash X",
+		"htbzine":                               "HTBZine",
+		"linezer0":                              "LineZer0",
+		"lucid":                                 "LuCiD",
+		"ice-weekly-newsletter":                 "iCE Weekly Newsletter",
+		"icon":                                  "iCON",
+		"imars":                                 "iMARS",
+		"jrp":                                   "Japanese Release Project",
+		"oneup":                                 "OneUp",
+		"orion":                                 "ORiON",
+		"mmi":                                   "MMi",
+		"mp2k":                                  "MP2K",
+		"nc_17":                                 "NC-17",
+		"nicjr":                                 "NicJr",
+		"noclass":                               "NoClass",
+		"nofx-bbs":                              "NoFX BBS",
+		"nukethis":                              "NukeThis",
+		"numbers":                               "The Numbers",
+		"nrp":                                   "NoRePack",
+		"paradox":                               "Paradox",
+		"phoenixbbs":                            "Phoenix BBS",
+		"pjs-tower-bbs":                         "PJs Tower BBS",
+		"playme":                                "PlayMe",
+		"pocketheaven":                          "PocketHeaven",
+		"psico":                                 "PSiCO",
+		"ptl-club":                              "PTL Club",
+		"pouet":                                 "Pouët",
+		"risciso":                               "RISCiSO",
+		"sda-review":                            "SDA Review",
+		"seek-n-destroy":                        "Seek n Destroy",
+		"sma-posse":                             "SMA Posse",
+		"shitonlygerman":                        "ShitOnlyGerman",
+		"software-pirates-inc":                  "Software Pirates Inc",
+		"sprint":                                "$print",
+		"surprise-productions":                  "Surprise! Productions",
+		"syndicate":                             "$yndicate",
+		"r2":                                    "Rebels + 2000AD",
+		"razordox":                              "RazorDOX",
+		"rhvid":                                 "RHViD",
+		"rzsoft-ftp":                            "RZSoft FTP",
+		"tkc*crackers-in-action":                "tKC/Crackers in Action",
+		"tdu_jam":                               "TDU Jam!",
+		"team-xtx":                              "Team XTX",
+		"thg-fx":                                "THG-FX",
+		"tft-team":                              "TFT Team",
+		"tpinc":                                 "TPiNC",
+		"trsi":                                  "TRSi",
+		"tristar-ampersand-red-sector-inc":      "Tristar & Red Sector Inc",
+		"the-dvdr-releasing-standards":          "The DVDR Releasing Standards",
+		"the-firm":                              "The FiRM",
+		"tsg-ftp":                               "tSG FTP",
+		"tport":                                 "tPORt",
+		"underpl":                               "UnderPL",
+		"unreal-magazine":                       "UnReal Magazine",
+		"united-software-association*fairlight": "United Software Association + Fairlight PC Division",
+		"vdr-lake-ftp":                          "VDR Lake FTP",
+		"well-release-anything":                 "We'll Release Anything",
+		"uniq":                                  "UNiQ",
+		"ypogeios":                              "YPOGEiOS",
+		"xdb":                                   "X-db",
+		"xquizit-ftp":                           "XquiziT FTP",
+		"pnx":                                   "Cyber Angels Phoenix",
+		"cpi-newsletter":                        "CPI Newsletter",
+		"warez":                                 "WareZ",
+		"mai-review":                            "MAi Review",
+		"nuke-infojournal":                      "[NuKE] InfoJournal",
+		"tsan-newsletter":                       "TSAN Newsletter",
+		"vip-magazine":                          "ViP Magazine",
+		"dmz-review":                            "DMZ Review",
+		"mr-bane-800-number-list":               "Mr. Bane's 800 Number List",
+		"ware-report":                           "WARE Report",
+		"apex-reviewers":                        "APEX Reviewers",
+		"globelist-world-bbs-listing":           "GlobeList World BBS Listing",
+		"spetznas":                              "SpetzNas",
+		"insomnia-emag":                         "iNSOMNiA E-Mag",
+		"nofear-news":                           "NOFEAR News",
+		"ram-newszine":                          "RAM Newszine",
+		"scam-magazine":                         "SCAM! Magazine",
+		"ntt":                                   "ENTiTY",
+		"radiant":                               "RADiANT",
+		"genesis-ppe":                           "Genesis PPE",
+		"genesis-404":                           "Genesis (404)",
+		"poison":                                "POiSON",
+		"natosoft":                              "NATOsoft",
+		"scd_dox":                               "SCD-Dox",
+	}
 }
 
-var lowercase = []string{
-	"mci-escapes",
-	"scenet",
-	"notwikipedia",
+// Lowercase are a collection of styled names that use all lowercasing.
+func Lowercase() []string {
+	return []string{
+		"mci-escapes",
+		"scenet",
+		"notwikipedia",
+	}
 }
 
-var uppercase = []string{
-	"ytmar",
-	"edge",
-	"ameriboards",
-	"nuke",
-	"bbslst",
-	"thhg",
-	"2nd2none-bbs",
-	"3wa-bbs",
-	"acb-bbs",
-	"anz-ftp",
-	"beer",
-	"bcp-bbs",
-	"cusa",
-	"ckc-bbs",
-	"cnx-ftp",
-	"core",
-	"crsiso",
-	"cwl-bbs",
-	"dv8-bbs",
-	"es-bbs",
-	"dread",
-	"fake",
-	"fate",
-	"fic-bbs",
-	"hasp",
-	"lkcc",
-	"lms-bbs",
-	"ls-bbs",
-	"lsdiso",
-	"lpc-bbs",
-	"lta-bbs",
-	"lube",
-	"mor-ftp",
-	"msv-ftp",
-	"new-dtl",
-	"nsdap",
-	"nohk",
-	"nos-ftp",
-	"og-bbs",
-	"okc-bbs",
-	"pe*trsi*tdt",
-	"petra",
-	"pplk",
-	"pmc-bbs",
-	"pp-bbs",
-	"ppps-bbs",
-	"pox-ftp",
-	"ps5b",
-	"psi-bbs",
-	"qed-bbs",
-	"reno",
-	"scum",
-	"swag",
-	"scf-ftp",
-	"scsi-ftp",
-	"shot",
-	"swat",
-	"tiw-bbs",
-	"tbb-ftp",
-	"tcsm-bbs",
-	"tfz-2-bbs",
-	"triad",
-	"toads",
-	"tog-ftp",
-	"top-ftp",
-	"tph-qqt",
-	"tph-qqt-ftp",
-	"trt-2001-bbs",
-	"tsi-bbs",
-	"tsc-bbs",
-	"uct-bbs",
-	"u4ea-ftp",
-	"x_ess",
-	"zoo-ftp",
-	"phoenix",
+// Uppercase are a collection of styled names that use all uppercasing.
+func Uppercase() []string {
+	return []string{
+		"ytmar",
+		"edge",
+		"ameriboards",
+		"nuke",
+		"bbslst",
+		"thhg",
+		"2nd2none-bbs",
+		"3wa-bbs",
+		"acb-bbs",
+		"anz-ftp",
+		"beer",
+		"bcp-bbs",
+		"cusa",
+		"ckc-bbs",
+		"cnx-ftp",
+		"core",
+		"crsiso",
+		"cwl-bbs",
+		"dv8-bbs",
+		"es-bbs",
+		"dread",
+		"fake",
+		"fate",
+		"fic-bbs",
+		"hasp",
+		"lkcc",
+		"lms-bbs",
+		"ls-bbs",
+		"lsdiso",
+		"lpc-bbs",
+		"lta-bbs",
+		"lube",
+		"mor-ftp",
+		"msv-ftp",
+		"new-dtl",
+		"nsdap",
+		"nohk",
+		"nos-ftp",
+		"og-bbs",
+		"okc-bbs",
+		"pe*trsi*tdt",
+		"petra",
+		"pplk",
+		"pmc-bbs",
+		"pp-bbs",
+		"ppps-bbs",
+		"pox-ftp",
+		"ps5b",
+		"psi-bbs",
+		"qed-bbs",
+		"reno",
+		"scum",
+		"swag",
+		"scf-ftp",
+		"scsi-ftp",
+		"shot",
+		"swat",
+		"tiw-bbs",
+		"tbb-ftp",
+		"tcsm-bbs",
+		"tfz-2-bbs",
+		"triad",
+		"toads",
+		"tog-ftp",
+		"top-ftp",
+		"tph-qqt",
+		"tph-qqt-ftp",
+		"trt-2001-bbs",
+		"tsi-bbs",
+		"tsc-bbs",
+		"uct-bbs",
+		"u4ea-ftp",
+		"x_ess",
+		"zoo-ftp",
+		"phoenix",
+	}
 }
-
-var (
-	specials = Special()
-)
 
 const (
 	spacedAmpersand = " & " // " & " is a special case
 	spacedComma     = ", "  // ", " is a special case
 )
 
+// Specials is cache of the special styled names that is used by Path.String().
+// The cache greatly improves benchmark performance.
+var specials = Special() //nolint:gochecknoglobals
+
 // Special returns the list of styled names that use special mix or all lower or upper casing.
 func Special() List {
-	l := make(List, len(names)+len(lowercase)+len(uppercase))
+	list := make(List, len(Names())+len(Lowercase())+len(Uppercase()))
 	for k, v := range Names() {
-		l[k] = v
+		list[k] = v
 	}
 	for k, v := range Lower() {
-		l[k] = v
+		list[k] = v
 	}
 	for k, v := range Upper() {
-		l[k] = v
+		list[k] = v
 	}
-	return l
-}
-
-// Names returns the list of well-known styled names.
-func Names() List {
-	return names
+	return list
 }
 
 // Lower returns the list of styled names that use all lowercasing.
 func Lower() List {
-	l := make(List, len(lowercase))
-	for _, s := range lowercase {
-		p := Path(s)
-		x, _ := Humanize(p)
-		l[p] = strings.ToLower(x)
+	list := make(List, len(Lowercase()))
+	for value := range slices.Values(Lowercase()) {
+		p := Path(value)
+		s, _ := Humanize(p)
+		list[p] = strings.ToLower(s)
 	}
-	return l
+	return list
 }
 
 // Upper returns the list of styled names that use all uppercasing.
 func Upper() List {
-	l := make(List, len(uppercase))
-	for _, s := range uppercase {
-		p := Path(s)
+	list := make(List, len(Uppercase()))
+	for value := range slices.Values(Uppercase()) {
+		p := Path(value)
 		x, _ := Humanize(p)
-		l[p] = strings.ToUpper(x)
+		list[p] = strings.ToUpper(x)
 	}
-	return l
+	return list
 }
 
 // Humanize deobfuscates the URL path and returns the formatted, human-readable group name.

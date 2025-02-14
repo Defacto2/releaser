@@ -2,6 +2,8 @@ package initialism_test
 
 import (
 	"fmt"
+	"io"
+	"slices"
 	"sort"
 	"strings"
 	"testing"
@@ -43,6 +45,7 @@ func ExampleJoin() {
 }
 
 func TestMatch(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		s    string
@@ -55,6 +58,7 @@ func TestMatch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			got := initialism.Match(tt.s)
 			c := make([]string, len(got))
 			for i, v := range got {
@@ -69,38 +73,39 @@ func TestMatch(t *testing.T) {
 }
 
 func BenchmarkIsInitialism(b *testing.B) {
-	b.Run("IsInitialism", func(b *testing.B) {
-		fmt.Println(initialism.IsInitialism("defacto2"))
-	})
+	for b.Loop() {
+		fmt.Fprintln(io.Discard, initialism.IsInitialism("defacto2"))
+	}
 }
 
 func BenchmarkInitialism(b *testing.B) {
-	b.Run("Initialism", func(b *testing.B) {
-		fmt.Println(initialism.Initialism("defacto2"))
-	})
+	for b.Loop() {
+		fmt.Fprintln(io.Discard, initialism.Initialism("defacto2"))
+	}
 }
 
 func BenchmarkInitialisms(b *testing.B) {
-	b.Run("Initialisms", func(b *testing.B) {
+	for b.Loop() {
 		const find = "USA"
-		for k, v := range initialism.Initialisms() {
-			for _, x := range v {
-				if x == find {
-					fmt.Printf("Found %v in %v\n", find, k)
+		for key, values := range initialism.Initialisms() {
+			for value := range slices.Values(values) {
+				if value == find {
+					fmt.Fprintf(io.Discard, "Found %v in %v\n", find, key)
 					return
 				}
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkMatch(b *testing.B) {
-	b.Run("Match", func(b *testing.B) {
-		fmt.Println(initialism.Match("razor"))
-	})
+	for b.Loop() {
+		fmt.Fprint(io.Discard, initialism.Match("razor"))
+	}
 }
 
 func TestInitialism(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		path initialism.Path
@@ -114,6 +119,7 @@ func TestInitialism(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := initialism.Initialism(tt.path); !equal(got, tt.want) {
 				t.Errorf("Initialism() = %v, want %v", got, tt.want)
 			}
@@ -132,6 +138,7 @@ func TestInitialism(t *testing.T) {
 }
 
 func TestInitialisms(t *testing.T) {
+	t.Parallel()
 	l := initialism.Initialisms()
 	if len(l) == 0 {
 		t.Errorf("Initialisms() = %v, want %v", l, "non-empty")
@@ -155,6 +162,7 @@ func TestInitialisms(t *testing.T) {
 }
 
 func TestIsInitialism(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		path initialism.Path
@@ -167,6 +175,7 @@ func TestIsInitialism(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := initialism.IsInitialism(tt.path); got != tt.want {
 				t.Errorf("IsInitialism() = %v, want %v", got, tt.want)
 			}

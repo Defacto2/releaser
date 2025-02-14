@@ -2,6 +2,8 @@ package releaser_test
 
 import (
 	"fmt"
+	"io"
+	"slices"
 	"strings"
 	"testing"
 
@@ -10,20 +12,16 @@ import (
 )
 
 func listNames() []string {
-	l := len(ins)
+	inits := initialism.Initialisms()
+	l := len(inits)
 	n := make([]string, l)
 	i := 0
-	for k := range initialism.Initialisms() {
+	for k := range inits {
 		n[i] = releaser.Humanize(string(k))
 		i++
 	}
 	return n
 }
-
-var (
-	ins   = initialism.Initialisms()
-	names = listNames()
-)
 
 func ExampleCell() {
 	s := "  Defacto2  demo  group."
@@ -65,78 +63,85 @@ func ExampleIndex() {
 }
 
 func BenchmarkCell(b *testing.B) {
-	b.Run("Cell", func(b *testing.B) {
-		for _, n := range names {
+	names := listNames()
+	for b.Loop() {
+		for n := range slices.Values(names) {
 			if s := releaser.Cell(n); s != "" {
-				fmt.Println(s)
+				fmt.Fprintln(io.Discard, s)
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkClean(b *testing.B) {
-	b.Run("Clean", func(b *testing.B) {
-		for _, n := range names {
+	names := listNames()
+	for b.Loop() {
+		for n := range slices.Values(names) {
 			if s := releaser.Clean(n); s != "" {
-				fmt.Println(s)
+				fmt.Fprintln(io.Discard, s)
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkHumanize(b *testing.B) {
-	b.Run("Humanize", func(b *testing.B) {
+	ins := initialism.Initialisms()
+	for b.Loop() {
 		for n := range ins {
 			if s := releaser.Humanize(string(n)); s != "" {
-				fmt.Println(s)
+				fmt.Fprintln(io.Discard, s)
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkIndex(b *testing.B) {
-	b.Run("Index", func(b *testing.B) {
+	ins := initialism.Initialisms()
+	for b.Loop() {
 		for n := range ins {
 			if s := releaser.Index(string(n)); s != "" {
-				fmt.Println(s)
+				fmt.Fprintln(io.Discard, s)
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkLink(b *testing.B) {
-	b.Run("Link", func(b *testing.B) {
+	ins := initialism.Initialisms()
+	for b.Loop() {
 		for uri := range ins {
-			s := releaser.Index(string(uri))
-			if title := releaser.Link(s); title != "" {
-				fmt.Println(title)
+			path := releaser.Index(string(uri))
+			if s := releaser.Link(path); s != "" {
+				fmt.Fprintln(io.Discard, s)
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkObfuscate(b *testing.B) {
-	b.Run("Obfuscate", func(b *testing.B) {
+	ins := initialism.Initialisms()
+	for b.Loop() {
 		for n := range ins {
 			if s := releaser.Obfuscate(string(n)); s != "" {
-				fmt.Println(s)
+				fmt.Fprintln(io.Discard, s)
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkTitle(b *testing.B) {
-	b.Run("Title", func(b *testing.B) {
-		for uri := range ins {
+	for b.Loop() {
+		for uri := range initialism.Initialisms() {
 			s := releaser.Index(string(uri))
 			if title := releaser.Title(s); title != "" {
-				fmt.Println(title)
+				fmt.Fprintln(io.Discard, title)
 			}
 		}
-	})
+	}
 }
 
 func TestCell(t *testing.T) {
+	t.Parallel()
 	type args struct {
 		s string
 	}
@@ -180,6 +185,7 @@ func TestCell(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := releaser.Cell(tt.args.s); got != strings.ToUpper(tt.want) {
 				t.Errorf("Cell() = %v, want %v", got, strings.ToUpper(tt.want))
 			}
@@ -188,6 +194,7 @@ func TestCell(t *testing.T) {
 }
 
 func TestClean(t *testing.T) {
+	t.Parallel()
 	type args struct {
 		s string
 	}
@@ -231,6 +238,7 @@ func TestClean(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := releaser.Clean(tt.args.s); got != tt.want {
 				t.Errorf("Clean() = %v, want %v", got, tt.want)
 			}
@@ -239,6 +247,7 @@ func TestClean(t *testing.T) {
 }
 
 func TestHumanize(t *testing.T) {
+	t.Parallel()
 	testCases := []struct {
 		input    string
 		expected string
@@ -282,6 +291,7 @@ func TestHumanize(t *testing.T) {
 }
 
 func TestLink(t *testing.T) {
+	t.Parallel()
 	testCases := []struct {
 		input    string
 		expected string
@@ -321,6 +331,7 @@ func TestLink(t *testing.T) {
 }
 
 func TestObfuscate(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		arg  string
@@ -348,6 +359,7 @@ func TestObfuscate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := releaser.Obfuscate(tt.arg); got != tt.want {
 				t.Errorf("Obfuscate(%q) = %q, want %q", tt.arg, got, tt.want)
 			}
@@ -356,6 +368,7 @@ func TestObfuscate(t *testing.T) {
 }
 
 func TestTitle(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		arg  string
@@ -370,6 +383,7 @@ func TestTitle(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := releaser.Title(tt.arg); got != tt.want {
 				t.Errorf("Title(%q) = %q, want %q", tt.arg, got, tt.want)
 			}

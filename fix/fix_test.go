@@ -65,6 +65,7 @@ func ExampleTrimSP() {
 }
 
 func TestTrimThe(t *testing.T) {
+	t.Parallel()
 	type args struct {
 		g string
 	}
@@ -83,6 +84,7 @@ func TestTrimThe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.TrimThe(tt.args.g); got != tt.want {
 				t.Errorf("TrimThe() = %v, want %v", got, tt.want)
 			}
@@ -91,6 +93,7 @@ func TestTrimThe(t *testing.T) {
 }
 
 func TestTrimDot(t *testing.T) {
+	t.Parallel()
 	type args struct {
 		s string
 	}
@@ -106,6 +109,7 @@ func TestTrimDot(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.TrimDot(tt.args.s); got != tt.want {
 				t.Errorf("TrimDot() = %v, want %v", got, tt.want)
 			}
@@ -114,6 +118,7 @@ func TestTrimDot(t *testing.T) {
 }
 
 func TestAmp(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		w    string
@@ -127,6 +132,7 @@ func TestAmp(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.Amp(tt.w); got != tt.want {
 				t.Errorf("Amp() = %v, want %v", got, tt.want)
 			}
@@ -135,6 +141,7 @@ func TestAmp(t *testing.T) {
 }
 
 func TestFormat(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		s    string
@@ -162,6 +169,7 @@ func TestFormat(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.Format(tt.s); got != tt.want {
 				t.Errorf("Format() = %v, want %v", got, tt.want)
 			}
@@ -170,6 +178,7 @@ func TestFormat(t *testing.T) {
 }
 
 func TestCell(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		s    string
@@ -183,6 +192,7 @@ func TestCell(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.Cell(tt.s); got != tt.want {
 				t.Errorf("Cell() = %v, want %v", got, tt.want)
 			}
@@ -191,6 +201,7 @@ func TestCell(t *testing.T) {
 }
 
 func TestConnect(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		word     string
@@ -208,6 +219,7 @@ func TestConnect(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.Connect(tt.word, tt.position, tt.last); got != tt.want {
 				t.Errorf("Connect() = %v, want %v", got, tt.want)
 			}
@@ -216,6 +228,7 @@ func TestConnect(t *testing.T) {
 }
 
 func Test_StripChars(t *testing.T) {
+	t.Parallel()
 	type args struct {
 		s string
 	}
@@ -234,6 +247,7 @@ func Test_StripChars(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.StripChars(tt.args.s); got != tt.want {
 				t.Errorf("StripChars() = %v, want %v", got, tt.want)
 			}
@@ -242,6 +256,7 @@ func Test_StripChars(t *testing.T) {
 }
 
 func Test_StripStart(t *testing.T) {
+	t.Parallel()
 	type args struct {
 		s string
 	}
@@ -260,6 +275,7 @@ func Test_StripStart(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.StripStart(tt.args.s); got != tt.want {
 				t.Errorf("StripStart() = %v, want %v", got, tt.want)
 			}
@@ -268,6 +284,7 @@ func Test_StripStart(t *testing.T) {
 }
 
 func Test_TrimSP(t *testing.T) {
+	t.Parallel()
 	type args struct {
 		s string
 	}
@@ -283,6 +300,7 @@ func Test_TrimSP(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := fix.TrimSP(tt.args.s); got != tt.want {
 				t.Errorf("TrimSP() = %v, want %v", got, tt.want)
 			}

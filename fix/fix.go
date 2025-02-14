@@ -4,6 +4,7 @@ package fix
 import (
 	"fmt"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -89,10 +90,10 @@ func Connect(w string, position, last int) string {
 //	Cell("the x bbs") = "X BBS"
 func Cell(s string) string {
 	groups := strings.Split(s, ",")
-	for j, group := range groups {
-		g := strings.ToLower(strings.TrimSpace(group))
-		g = Amp(g)
-		words := strings.Split(g, space)
+	for index, group := range groups {
+		fullname := strings.ToLower(strings.TrimSpace(group))
+		fullname = Amp(fullname)
+		words := strings.Split(fullname, space)
 		last := len(words) - 1
 		for i, word := range words {
 			word = TrimDot(word)
@@ -102,7 +103,7 @@ func Cell(s string) string {
 			}
 			words[i] = Fix(word, i, last)
 		}
-		groups[j] = strings.Join(words, space)
+		groups[index] = strings.Join(words, space)
 	}
 	return strings.ToUpper(strings.Join(groups, ", "))
 }
@@ -156,14 +157,14 @@ func Format(s string) string {
 		return strings.ToUpper(s)
 	}
 	groups := strings.Split(s, ",")
-	for j, group := range groups {
-		g := strings.ToLower(strings.TrimSpace(group))
-		g = Amp(g)
-		if special := name.Path(name.Obfuscate(g)).String(); special != "" {
-			groups[j] = special
+	for index, group := range groups {
+		fullname := strings.ToLower(strings.TrimSpace(group))
+		fullname = Amp(fullname)
+		if special := name.Obfuscate(fullname).String(); special != "" {
+			groups[index] = special
 			continue
 		}
-		words := strings.Split(g, space)
+		words := strings.Split(fullname, space)
 		last := len(words) - 1
 		for i, word := range words {
 			word = TrimDot(word)
@@ -173,7 +174,7 @@ func Format(s string) string {
 			}
 			words[i] = Fix(word, i, last)
 		}
-		groups[j] = strings.Join(words, space)
+		groups[index] = strings.Join(words, space)
 	}
 	return strings.Join(groups, ", ")
 }
@@ -185,46 +186,36 @@ func Format(s string) string {
 //
 //	PreSuffix("12am", cases.Title(language.English, cases.NoLower)) = "12AM"
 func PreSuffix(s string, title cases.Caser) string {
-	w := strings.ToLower(s)
+	word := strings.ToLower(s)
+	atois := []string{"ad", "bc", "am", "pm"}
+	for suffix := range slices.Values(atois) {
+		if !strings.HasSuffix(word, suffix) {
+			continue
+		}
+		trim := strings.TrimSuffix(word, suffix)
+		if value, err := strconv.Atoi(trim); err == nil {
+			return fmt.Sprintf("%d%s", value, strings.ToUpper(suffix))
+		}
+	}
 	switch {
-	case strings.HasSuffix(w, "ad"):
-		x := strings.TrimSuffix(w, "ad")
-		if val, err := strconv.Atoi(x); err == nil {
-			return fmt.Sprintf("%dAD", val)
-		}
-	case strings.HasSuffix(w, "bc"):
-		x := strings.TrimSuffix(w, "bc")
-		if val, err := strconv.Atoi(x); err == nil {
-			return fmt.Sprintf("%dBC", val)
-		}
-	case strings.HasSuffix(w, "am"):
-		x := strings.TrimSuffix(w, "am")
-		if val, err := strconv.Atoi(x); err == nil {
-			return fmt.Sprintf("%dAM", val)
-		}
-	case strings.HasSuffix(w, "pm"):
-		x := strings.TrimSuffix(w, "pm")
-		if val, err := strconv.Atoi(x); err == nil {
-			return fmt.Sprintf("%dPM", val)
-		}
-	case strings.HasSuffix(w, "dox"):
-		val := strings.TrimSuffix(w, "dox")
-		return fmt.Sprintf("%sDox", title.String(val))
-	case strings.HasSuffix(w, "fxp"):
-		val := strings.TrimSuffix(w, "fxp")
-		return fmt.Sprintf("%sFXP", title.String(val))
-	case strings.HasSuffix(w, "iso"):
-		val := strings.TrimSuffix(w, "iso")
-		return fmt.Sprintf("%sISO", title.String(val))
-	case strings.HasSuffix(w, "nfo"):
-		val := strings.TrimSuffix(w, "nfo")
-		return fmt.Sprintf("%sNFO", title.String(val))
-	case strings.HasPrefix(w, "pc-"):
-		val := strings.TrimPrefix(w, "pc-")
-		return fmt.Sprintf("PC-%s", title.String(val))
-	case strings.HasPrefix(w, "lsd"):
-		val := strings.TrimPrefix(w, "lsd")
-		return fmt.Sprintf("LSD%s", title.String(val))
+	case strings.HasSuffix(word, "dox"):
+		trim := strings.TrimSuffix(word, "dox")
+		return title.String(trim) + "Dox"
+	case strings.HasSuffix(word, "fxp"):
+		trim := strings.TrimSuffix(word, "fxp")
+		return title.String(trim) + "FXP"
+	case strings.HasSuffix(word, "iso"):
+		trim := strings.TrimSuffix(word, "iso")
+		return title.String(trim) + "ISO"
+	case strings.HasSuffix(word, "nfo"):
+		trim := strings.TrimSuffix(word, "nfo")
+		return title.String(trim) + "NFO"
+	case strings.HasPrefix(word, "pc-"):
+		trim := strings.TrimPrefix(word, "pc-")
+		return "PC-" + title.String(trim)
+	case strings.HasPrefix(word, "lsd"):
+		trim := strings.TrimPrefix(word, "lsd")
+		return "LSD" + title.String(trim)
 	}
 	return ""
 }

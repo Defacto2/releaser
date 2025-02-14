@@ -1,7 +1,10 @@
 package name_test
 
 import (
+	"errors"
 	"fmt"
+	"io"
+	"os"
 	"testing"
 
 	"github.com/Defacto2/releaser"
@@ -10,7 +13,7 @@ import (
 )
 
 func listNames() []string {
-	l := len(ins)
+	l := len(initialism.Initialisms())
 	n := make([]string, l)
 	i := 0
 	for k := range initialism.Initialisms() {
@@ -19,11 +22,6 @@ func listNames() []string {
 	}
 	return n
 }
-
-var (
-	ins   = initialism.Initialisms()
-	names = listNames()
-)
 
 func ExampleHumanize() {
 	s, _ := name.Humanize("defacto2")
@@ -109,33 +107,35 @@ func ExamplePath_Valid() {
 }
 
 func BenchmarkPath(b *testing.B) {
-	b.Run("Path", func(b *testing.B) {
-		for uri := range ins {
+	for b.Loop() {
+		for uri := range initialism.Initialisms() {
 			path := name.Path(uri)
 			if !path.Valid() {
-				fmt.Println("invalid! " + path.String())
+				fmt.Fprintln(os.Stderr, "invalid! "+path.String())
 				continue
 			}
 			if s := path.String(); s != "" {
-				fmt.Println(s)
+				fmt.Fprintln(io.Discard, s)
 			}
 		}
-	})
+	}
 }
 
 func BenchmarkObfuscate(b *testing.B) {
-	b.Run("Obfuscate", func(b *testing.B) {
-		for i, n := range names {
-			fmt.Println(i, n, string(name.Obfuscate(n)))
+	for b.Loop() {
+		for i, n := range listNames() {
+			fmt.Fprintln(io.Discard, i, n, string(name.Obfuscate(n)))
 		}
-	})
+	}
 }
 
 func TestSpecial(t *testing.T) {
+	t.Parallel()
 	// confirm all keys are valid and values are not empty
 	special := name.Special()
 	for key, val := range special {
-		fmt.Println(key, val)
+		// to debug, send to os.Stdout
+		fmt.Fprintln(io.Discard, key, val)
 		if !key.Valid() {
 			t.Errorf("Special() invalid %v", key)
 		}
@@ -146,6 +146,7 @@ func TestSpecial(t *testing.T) {
 }
 
 func TestHumanize(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name    string
 		path    name.Path
@@ -186,8 +187,9 @@ func TestHumanize(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			got, err := name.Humanize(tt.path)
-			if err != tt.wantErr {
+			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("Humanize() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
@@ -199,6 +201,7 @@ func TestHumanize(t *testing.T) {
 }
 
 func TestObfuscate(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		arg  string
@@ -238,6 +241,7 @@ func TestObfuscate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			got := name.Obfuscate(tt.arg)
 			if got != name.Path(tt.want) {
 				t.Errorf("Obfuscate(%q) = %q, want %q", tt.arg, got, tt.want)
