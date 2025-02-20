@@ -718,7 +718,7 @@ func Initialisms() List { //nolint:maintidx
 		"silicon-dream-artists":                  {"SDA"},
 		"shallow-grounds":                        {"SG"},
 		"share-and-enjoy":                        {"SAE"},
-		"shore-crackingansi-runners":             {"SCaR"},
+		"shore-cracking-ansi-runners":            {"SCaR"},
 		"shmeitcorp":                             {"Shmeit Corp", "SC"},
 		"shitonlygerman":                         {"SOG", "Scheisse Deutsch Only"},
 		"skillion":                               {"SKN"},
