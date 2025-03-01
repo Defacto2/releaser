@@ -57,6 +57,14 @@ or converted due to their special uses within the name.
 // Names returns the list of well-known styled names.
 func Names() List {
 	return List{
+		"german-diskdoubler":                    "German DiskDoubler",
+		"excel_xl":                              "EXCEL/XL!",
+		"ob_gyn":                                "OB/GYN",
+		"primag":                                "PRiMAG",
+		"roi-production":                        "ROI Production",
+		"dome":                                  "DoME",
+		"image-productions-2":                   "iMAGE Productions (#2)",
+		"image-nj":                              "iMAGE (NJ)",
 		"ninja":                                 "NiNJA",
 		"orgasming-gaming-magazine":             "orGAsMING Gaming Magazine",
 		"gameboycolor-world-charts":             "GameBoyColor World Charts",
@@ -171,6 +179,10 @@ func Names() List {
 		"poison":                                "POiSON",
 		"natosoft":                              "NATOsoft",
 		"scd_dox":                               "SCD-Dox",
+		"bs-enterprize":                         "BS Enterprize",
+		"ralph-productions":                     "RalPh Productions",
+		"unknown-couriers":                      "The Unknöwn Couriers",
+		"wat-courier-crew":                      "WAT Courier Crew",
 	}
 }
 
@@ -186,6 +198,7 @@ func Lowercase() []string {
 // Uppercase are a collection of styled names that use all uppercasing.
 func Uppercase() []string {
 	return []string{
+		"jake",
 		"ytmar",
 		"edge",
 		"ameriboards",

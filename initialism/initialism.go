@@ -43,6 +43,7 @@ const (
 	tsep    = "twilight-software-engineering-and-pirating"
 	mcsci   = "monthly-console-scene-charts-international"
 	nwo     = "new-world-order-computer-underground-magazine"
+	uart    = "ultimate-association-of-reckless-talent"
 )
 
 // Initialisms returns the list of initialisms.
@@ -57,6 +58,43 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() List { //nolint:maintidx
 	return List{
+		"united-file-traderz":                    {"UFT"},
+		"european-trading-alliance":              {"ETA"},
+		"best-of-the-best-phreaking-man":         {"BOB"},
+		"hungarian-megacracker-group":            {"HMG"},
+		"inter-active":                           {"IA"},
+		"unreal-reality":                         {"UR"},
+		"success-pc":                             {"SPC"},
+		"the-primal-order":                       {"TPO"},
+		"the-avocado-avengers":                   {"TAA"},
+		"madras":                                 {"MAD"},
+		"mirth":                                  {"MTH"},
+		"bs-enterprize":                          {"B.S. Enterprize"},
+		"osiris":                                 {"ORS"},
+		"dark-force":                             {"DF"},
+		"calculus":                               {"TCG", "The Calculus Group"},
+		"distorted":                              {"DSD"},
+		"cyanide":                                {"CYN"},
+		"german-diskdoubler":                     {"GDD"},
+		"un_touchable-force-organization":        {"UTFO"},
+		"jackshit":                               {"jS"},
+		"187":                                    {"187 Couriers", "One Eight Seven"},
+		"banch-o-guyz":                           {"BOG"},
+		"lamer-of-the-world":                     {"LOTW"},
+		"hasp":                                   {"H.A.S.P."},
+		"roi-production":                         {"ROI", "WaREZ ROI"},
+		"indigo":                                 {"IGD"},
+		"storm-inc":                              {"SM"},
+		"syndrome":                               {"SYD"},
+		"the-cracking-team":                      {"TCT"},
+		uart:                                     {"UART", "URT"},
+		"universal-crime-league":                 {"UCL"},
+		"phase-one":                              {"P1"},
+		"the-damaged-inc":                        {"TDi"},
+		"undercover-agents":                      {"UA"},
+		"atomic-review":                          {"ATM", "Atomic Review Krew"},
+		"ironside-data-productions":              {"iDP"},
+		"italian-crackware-inc":                  {"ICI"},
 		"scd_dox":                                {"SCD", "Software Chronicles Digest / Dox Division"},
 		"needful-things":                         {"NT"},
 		"one-man-courier":                        {"OMC"},
@@ -190,7 +228,7 @@ func Initialisms() List { //nolint:maintidx
 		"argies-courier-united":                  {"ACU"},
 		"atari-pirates-incorporated":             {"API"},
 		"atlantic-trading-alliance":              {"ATA"},
-		"attack-decay-sustain-release":           {"ADSR"},
+		"attack-decay-sustain-release":           {"ADSR", "AR"},
 		"artists-without-loyality":               {"AWoL"},
 		"arcane-corporate-elite":                 {"ACE"},
 		"backlash":                               {"BLH"},
