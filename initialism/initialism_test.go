@@ -28,7 +28,7 @@ func ExampleInitialisms() {
 			}
 		}
 	}
-	// Output: Found USA in united-software-association
+	// Output: Found USA in united-software-association*fairlight
 }
 
 func ExampleIsInitialism() {
@@ -39,9 +39,9 @@ func ExampleIsInitialism() {
 func ExampleJoin() {
 	fmt.Println(initialism.Join("the-firm")) // FiRM, FRM
 
-	fmt.Println(initialism.Join("united-software-association")) // USA
+	fmt.Println(initialism.Join("united-software-association*fairlight")) // USA
 	// Output: FiRM, FRM
-	// USA
+	// USA/FLT, USA
 }
 
 func TestMatch(t *testing.T) {

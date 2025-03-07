@@ -57,6 +57,7 @@ or converted due to their special uses within the name.
 // Names returns the list of well-known styled names.
 func Names() List {
 	return List{
+		"god-network":                           "G.O.D. Network",
 		"german-diskdoubler":                    "German DiskDoubler",
 		"excel_xl":                              "EXCEL/XL!",
 		"ob_gyn":                                "OB/GYN",
@@ -127,7 +128,6 @@ func Names() List {
 		"sma-posse":                             "SMA Posse",
 		"shitonlygerman":                        "ShitOnlyGerman",
 		"software-pirates-inc":                  "Software Pirates Inc",
-		"sprint":                                "$print",
 		"surprise-productions":                  "Surprise! Productions",
 		"syndicate":                             "$yndicate",
 		"r2":                                    "Rebels + 2000AD",
@@ -173,6 +173,7 @@ func Names() List {
 		"ram-newszine":                          "RAM Newszine",
 		"scam-magazine":                         "SCAM! Magazine",
 		"ntt":                                   "ENTiTY",
+		"eliteslst":                             "ELITES.LST",
 		"radiant":                               "RADiANT",
 		"genesis-ppe":                           "Genesis PPE",
 		"genesis-404":                           "Genesis (404)",
@@ -183,6 +184,27 @@ func Names() List {
 		"ralph-productions":                     "RalPh Productions",
 		"unknown-couriers":                      "The Unknöwn Couriers",
 		"wat-courier-crew":                      "WAT Courier Crew",
+		"usalliance":                            "USAlliance",
+		"acronym":                               "ACRONYMINIM",
+		"powr":                                  "PoWR",
+		"maim":                                  "MAiM",
+		"relic":                                 "RELiC",
+		"hipe":                                  "HiPE",
+		"spectral":                              "Spec┼raL",
+		"rpim":                                  "RPiM",
+		"pri":                                   "PRi",
+		"starjammers":                           "StarJammers",
+		"mobius":                                "Möbius",
+		"eclipse-ca":                            "Eclipse (CA)",
+		"bom-squad":                             "BOM Squad",
+		"wildsiderz":                            "WildSider",
+		"motorsoft":                             "MotorSoft",
+		"scorpion":                              "Scorpion ¥",
+		"pmr-productions":                       "PMR Productions",
+		"micropirates-inc":                      "MicroPirates Inc",
+		"bad-association":                       "BAD Association",
+		"the-underground-council":               "The UnderGround Council",
+		"the-nameless-ones-1989":                "The Nameless Ones (1989)",
 	}
 }
 
@@ -192,12 +214,19 @@ func Lowercase() []string {
 		"mci-escapes",
 		"scenet",
 		"notwikipedia",
+		"xpress",
 	}
 }
 
 // Uppercase are a collection of styled names that use all uppercasing.
 func Uppercase() []string {
 	return []string{
+		"icch",
+		"mash",
+		"casa",
+		"orpa",
+		"arts",
+		"acronym",
 		"jake",
 		"ytmar",
 		"edge",
@@ -274,6 +303,7 @@ func Uppercase() []string {
 		"x_ess",
 		"zoo-ftp",
 		"phoenix",
+		"sprint",
 	}
 }
 
