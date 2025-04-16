@@ -56,8 +56,8 @@ const (
 //   - In Go, the order of the List map keys is randomized and has no performance impact.
 //
 // [releaser/name]: https://github.com/Defacto2/releaser/name
-func Initialisms() List { //nolint:maintidx
-	return List{
+func Initialisms() *List { //nolint:maintidx
+	list := List{
 		"swift-couriering-inc":                   {"SCI"},
 		"ians-rotting-corpse":                    {"IRC"},
 		"lords-of-chaos":                         {"LoC"},
@@ -77,7 +77,7 @@ func Initialisms() List { //nolint:maintidx
 		"bad-association":                        {"BBS's Against Dweebs"},
 		"west-coast-alliance":                    {"WCA"},
 		"warriors-against-copy-protection":       {"WACP"},
-		"the-alternative":                        {"An Alternative release"},
+		"the-alternative":                        {"An Alternative release", "Celerity"},
 		"state-of-the-art":                       {"SOTA"},
 		"boogie-down-productions":                {"BDP"},
 		"digital-exchange-pirate-board-alliance": {"DEPBA"},
@@ -719,7 +719,7 @@ func Initialisms() List { //nolint:maintidx
 		"public-brand-software":                  {"PBS"},
 		"public-enemy":                           {"PE"},
 		"pyradical":                              {"PYR"},
-		"quartex":                                {"QTX"},
+		"quartex":                                {"QTX", "Quartex PC"},
 		quick:                                    {"QUICK"},
 		"radical-elite-movement":                 {"REM"},
 		"really-awful-music":                     {"RAM"},
@@ -1021,6 +1021,7 @@ func Initialisms() List { //nolint:maintidx
 		"zick-zack-cooperation":                  {"ZZC"},
 		"zone":                                   {"z0ne"},
 	}
+	return &list
 }
 
 // Initialism returns the alternative spellings, acronyms and initialisms for the URL path.
@@ -1031,7 +1032,8 @@ func Initialisms() List { //nolint:maintidx
 //	Initialism("the-firm") = []string{"FiRM, FRM"}
 //	Initialism("defacto2") = []string{"DF2"}
 func Initialism(path Path) []string {
-	return Initialisms()[path]
+	initialism := *Initialisms()
+	return initialism[path]
 }
 
 // IsInitialism returns true if the URL path has an initialism.
@@ -1042,7 +1044,8 @@ func Initialism(path Path) []string {
 //	IsInitialism("defacto2") = true
 //	IsInitialism("some-random-bbs") = false
 func IsInitialism(path Path) bool {
-	_, match := Initialisms()[path]
+	initialism := *Initialisms()
+	_, match := initialism[path]
 	return match
 }
 
@@ -1065,7 +1068,7 @@ func Join(path Path) string {
 // Match returns the list of initialisms that match the given string.
 func Match(s string) []Path {
 	var partials []Path
-	for partial, values := range maps.All(Initialisms()) {
+	for partial, values := range maps.All(*Initialisms()) {
 		for value := range slices.Values(values) {
 			if strings.EqualFold(value, s) {
 				partials = append(partials, partial)

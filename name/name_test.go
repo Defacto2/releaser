@@ -13,10 +13,10 @@ import (
 )
 
 func listNames() []string {
-	l := len(initialism.Initialisms())
+	l := len(*initialism.Initialisms())
 	n := make([]string, l)
 	i := 0
-	for k := range initialism.Initialisms() {
+	for k := range *initialism.Initialisms() {
 		n[i] = releaser.Humanize(string(k))
 		i++
 	}
@@ -49,7 +49,7 @@ func ExampleHumanize_error() {
 
 func ExampleSpecial() {
 	find := name.Path("surprise-productions")
-	for key, val := range name.Special() {
+	for key, val := range *name.Special() {
 		if key == find {
 			fmt.Println(val)
 		}
@@ -69,7 +69,7 @@ func ExampleObfuscate() {
 
 func ExampleList() {
 	uri := "defacto2net"
-	for key, val := range name.Names() {
+	for key, val := range *name.Names() {
 		if key == name.Path(uri) {
 			fmt.Println(val)
 		}
@@ -79,7 +79,7 @@ func ExampleList() {
 
 func ExampleUpper() {
 	uri := "beer"
-	for key, val := range name.Upper() {
+	for key, val := range *name.Upper() {
 		if key == name.Path(uri) {
 			fmt.Println(val)
 		}
@@ -108,7 +108,7 @@ func ExamplePath_Valid() {
 
 func BenchmarkPath(b *testing.B) {
 	for b.Loop() {
-		for uri := range initialism.Initialisms() {
+		for uri := range *initialism.Initialisms() {
 			path := name.Path(uri)
 			if !path.Valid() {
 				fmt.Fprintln(os.Stderr, "invalid! "+path.String())
@@ -133,7 +133,7 @@ func TestSpecial(t *testing.T) {
 	t.Parallel()
 	// confirm all keys are valid and values are not empty
 	special := name.Special()
-	for key, val := range special {
+	for key, val := range *special {
 		// to debug, send to os.Stdout
 		fmt.Fprintln(io.Discard, key, val)
 		if !key.Valid() {

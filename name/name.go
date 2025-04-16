@@ -6,6 +6,7 @@ package name
 
 import (
 	"errors"
+	"maps"
 	"regexp"
 	"slices"
 	"strings"
@@ -55,8 +56,8 @@ or converted due to their special uses within the name.
 */
 
 // Names returns the list of well-known styled names.
-func Names() List {
-	return List{
+func Names() *List {
+	list := List{
 		"god-network":                           "G.O.D. Network",
 		"german-diskdoubler":                    "German DiskDoubler",
 		"excel_xl":                              "EXCEL/XL!",
@@ -206,6 +207,7 @@ func Names() List {
 		"the-underground-council":               "The UnderGround Council",
 		"the-nameless-ones-1989":                "The Nameless Ones (1989)",
 	}
+	return &list
 }
 
 // Lowercase are a collection of styled names that use all lowercasing.
@@ -314,43 +316,37 @@ const (
 
 // Specials is cache of the special styled names that is used by Path.String().
 // The cache greatly improves benchmark performance.
-var specials = Special() //nolint:gochecknoglobals
+var specials = *Special() //nolint:gochecknoglobals
 
 // Special returns the list of styled names that use special mix or all lower or upper casing.
-func Special() List {
-	list := make(List, len(Names())+len(Lowercase())+len(Uppercase()))
-	for k, v := range Names() {
-		list[k] = v
-	}
-	for k, v := range Lower() {
-		list[k] = v
-	}
-	for k, v := range Upper() {
-		list[k] = v
-	}
-	return list
+func Special() *List {
+	list := make(List, len(*Names())+len(Lowercase())+len(Uppercase()))
+	maps.Copy(list, *Names())
+	maps.Copy(list, *Lower())
+	maps.Copy(list, *Upper())
+	return &list
 }
 
 // Lower returns the list of styled names that use all lowercasing.
-func Lower() List {
+func Lower() *List {
 	list := make(List, len(Lowercase()))
 	for value := range slices.Values(Lowercase()) {
 		p := Path(value)
 		s, _ := Humanize(p)
 		list[p] = strings.ToLower(s)
 	}
-	return list
+	return &list
 }
 
 // Upper returns the list of styled names that use all uppercasing.
-func Upper() List {
+func Upper() *List {
 	list := make(List, len(Uppercase()))
 	for value := range slices.Values(Uppercase()) {
 		p := Path(value)
 		x, _ := Humanize(p)
 		list[p] = strings.ToUpper(x)
 	}
-	return list
+	return &list
 }
 
 // Humanize deobfuscates the URL path and returns the formatted, human-readable group name.

@@ -1,0 +1,32 @@
+# https://golangci-lint.run/usage/configuration/
+# 
+# To test and lint the code, run the following commands:
+# $ go test -race ./...
+# $ gofumpt -w ./..
+# $ golangci-lint run
+
+linters:
+  # Enable all available linters.
+  # Default: false
+  enable-all: true
+  # Run only fast linters from enabled linters set (first run won't be fast).
+  # Default: false
+  fast: false
+  # Disable specific linters.
+  disable:
+    # deprecated
+    - tenv
+    # disabled
+    - funlen            # should enable at a later stage. 
+    - depguard          # don't need this.
+    - wsl               # fussy over whitespace.
+    - nlreturn          # fussy over whitespace.
+    - varnamelen        # fussy over variable names.
+    # temporary disabled
+
+linters-settings:
+  misspell:
+    # Correct spellings using locale preferences for US or UK.
+    # Setting locale to US will correct the British spelling of 'colour' to 'color'.
+    # Default is to use a neutral variety of English.
+    locale: US

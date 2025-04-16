@@ -146,12 +146,12 @@ func Link(path string) string {
 func Obfuscate(s string) string {
 	x := fix.StripStart(s)
 	x = strings.TrimSpace(x)
-	for uri, special := range maps.All(specials) {
+	for uri, special := range maps.All(*specials) {
 		if strings.EqualFold(x, special) {
 			return string(uri)
 		}
 	}
-	for uri, values := range maps.All(initialisms) {
+	for uri, values := range maps.All(*initialisms) {
 		for value := range slices.Values(values) {
 			if strings.EqualFold(x, value) {
 				return string(uri)
@@ -178,12 +178,12 @@ func Obfuscate(s string) string {
 func Title(s string) string {
 	x := fix.StripStart(s)
 	x = strings.TrimSpace(x)
-	for _, special := range specials {
+	for _, special := range *specials {
 		if strings.EqualFold(x, special) {
 			return special
 		}
 	}
-	for uri, values := range maps.All(initialisms) {
+	for uri, values := range maps.All(*initialisms) {
 		for value := range slices.Values(values) {
 			if strings.EqualFold(x, value) {
 				return Humanize(string(uri))

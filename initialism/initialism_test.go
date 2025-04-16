@@ -20,7 +20,7 @@ func ExampleInitialism() {
 
 func ExampleInitialisms() {
 	const find = "USA"
-	for k, v := range initialism.Initialisms() {
+	for k, v := range *initialism.Initialisms() {
 		for _, x := range v {
 			if x == find {
 				fmt.Printf("Found %v in %v\n", find, k)
@@ -87,7 +87,7 @@ func BenchmarkInitialism(b *testing.B) {
 func BenchmarkInitialisms(b *testing.B) {
 	for b.Loop() {
 		const find = "USA"
-		for key, values := range initialism.Initialisms() {
+		for key, values := range *initialism.Initialisms() {
 			for value := range slices.Values(values) {
 				if value == find {
 					fmt.Fprintf(io.Discard, "Found %v in %v\n", find, key)
@@ -126,7 +126,7 @@ func TestInitialism(t *testing.T) {
 		})
 	}
 	// Confirm all keys are valid URL paths.
-	for key := range initialism.Initialisms() {
+	for key := range *initialism.Initialisms() {
 		// keys must be lowercase and start with only letters or numbers
 		k := string(key)
 		chr := rune(k[0])
@@ -139,7 +139,7 @@ func TestInitialism(t *testing.T) {
 
 func TestInitialisms(t *testing.T) {
 	t.Parallel()
-	l := initialism.Initialisms()
+	l := *initialism.Initialisms()
 	if len(l) == 0 {
 		t.Errorf("Initialisms() = %v, want %v", l, "non-empty")
 	}

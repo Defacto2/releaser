@@ -12,7 +12,7 @@ import (
 )
 
 func listNames() []string {
-	inits := initialism.Initialisms()
+	inits := *initialism.Initialisms()
 	l := len(inits)
 	n := make([]string, l)
 	i := 0
@@ -87,7 +87,7 @@ func BenchmarkClean(b *testing.B) {
 func BenchmarkHumanize(b *testing.B) {
 	ins := initialism.Initialisms()
 	for b.Loop() {
-		for n := range ins {
+		for n := range *ins {
 			if s := releaser.Humanize(string(n)); s != "" {
 				fmt.Fprintln(io.Discard, s)
 			}
@@ -98,7 +98,7 @@ func BenchmarkHumanize(b *testing.B) {
 func BenchmarkIndex(b *testing.B) {
 	ins := initialism.Initialisms()
 	for b.Loop() {
-		for n := range ins {
+		for n := range *ins {
 			if s := releaser.Index(string(n)); s != "" {
 				fmt.Fprintln(io.Discard, s)
 			}
@@ -109,7 +109,7 @@ func BenchmarkIndex(b *testing.B) {
 func BenchmarkLink(b *testing.B) {
 	ins := initialism.Initialisms()
 	for b.Loop() {
-		for uri := range ins {
+		for uri := range *ins {
 			path := releaser.Index(string(uri))
 			if s := releaser.Link(path); s != "" {
 				fmt.Fprintln(io.Discard, s)
@@ -121,7 +121,7 @@ func BenchmarkLink(b *testing.B) {
 func BenchmarkObfuscate(b *testing.B) {
 	ins := initialism.Initialisms()
 	for b.Loop() {
-		for n := range ins {
+		for n := range *ins {
 			if s := releaser.Obfuscate(string(n)); s != "" {
 				fmt.Fprintln(io.Discard, s)
 			}
@@ -131,7 +131,7 @@ func BenchmarkObfuscate(b *testing.B) {
 
 func BenchmarkTitle(b *testing.B) {
 	for b.Loop() {
-		for uri := range initialism.Initialisms() {
+		for uri := range *initialism.Initialisms() {
 			s := releaser.Index(string(uri))
 			if title := releaser.Title(s); title != "" {
 				fmt.Fprintln(io.Discard, title)
