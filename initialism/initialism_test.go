@@ -10,7 +10,7 @@ import (
 	"unicode"
 
 	"github.com/Defacto2/releaser/initialism"
-	"github.com/stretchr/testify/assert"
+	"github.com/nalgeon/be"
 )
 
 func ExampleInitialism() {
@@ -20,12 +20,9 @@ func ExampleInitialism() {
 
 func ExampleInitialisms() {
 	const find = "USA"
-	for k, v := range *initialism.Initialisms() {
-		for _, x := range v {
-			if x == find {
-				fmt.Printf("Found %v in %v\n", find, k)
-				return
-			}
+	for key, isms := range *initialism.Initialisms() {
+		if slices.Contains(isms, find) {
+			fmt.Printf("Found %v in %v\n", find, key)
 		}
 	}
 	// Output: Found USA in united-software-association*fairlight
@@ -65,9 +62,10 @@ func TestMatch(t *testing.T) {
 				c[i] = string(v)
 			}
 			sort.Strings(c)
-			if !assert.Equal(t, tt.want, c) {
-				t.Errorf("Match() = %v, want %v", c, tt.want)
-			}
+			be.Equal(t, c, tt.want)
+			// if !assert.Equal(t, tt.want, c) {
+			// 	t.Errorf("Match() = %v, want %v", c, tt.want)
+			// }
 		})
 	}
 }
@@ -130,10 +128,10 @@ func TestInitialism(t *testing.T) {
 		// keys must be lowercase and start with only letters or numbers
 		k := string(key)
 		chr := rune(k[0])
-		assert.Equal(t, strings.ToLower(k), k)
-		assert.Equal(t, strings.TrimSpace(k), k)
-		assert.True(t, unicode.IsLetter(chr) || unicode.IsNumber(chr),
-			"this key does not look right: "+k)
+		be.Equal(t, k, strings.ToLower(k))
+		be.Equal(t, k, strings.TrimSpace(k))
+		valid := unicode.IsLetter(chr) || unicode.IsNumber(chr)
+		be.True(t, valid)
 	}
 }
 
