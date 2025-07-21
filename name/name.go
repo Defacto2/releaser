@@ -207,6 +207,8 @@ func Names() *List {
 		"the-underground-council":               "The UnderGround Council",
 		"the-nameless-ones-1989":                "The Nameless Ones (1989)",
 		"trc-ware-report":                       "TRC Ware Report",
+		"backlash":                              "BackLash",
+		"fogo":                                  "fOGO",
 	}
 	return &list
 }
