@@ -97,7 +97,7 @@ func Initialisms() *List { //nolint:maintidx
 		"the-avocado-avengers":                   {"TAA"},
 		"madras":                                 {"MAD"},
 		"mirth":                                  {"MTH"},
-		"bs-enterprize":                          {"B.S. Enterprize"},
+		"bs-enterprize":                          {"B.S. Enterprize"}, //nolint:misspell
 		"osiris":                                 {"ORS"},
 		"dark-force":                             {"DF"},
 		"calculus":                               {"TCG", "The Calculus Group"},

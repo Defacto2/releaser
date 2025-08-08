@@ -181,7 +181,7 @@ func Names() *List {
 		"poison":                                "POiSON",
 		"natosoft":                              "NATOsoft",
 		"scd_dox":                               "SCD-Dox",
-		"bs-enterprize":                         "BS Enterprize",
+		"bs-enterprize":                         "BS Enterprize", //nolint:misspell
 		"ralph-productions":                     "RalPh Productions",
 		"unknown-couriers":                      "The Unknöwn Couriers",
 		"wat-courier-crew":                      "WAT Courier Crew",
