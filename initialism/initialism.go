@@ -665,7 +665,7 @@ func Initialisms() *List { //nolint:maintidx
 		"objectile":                              {"OCT"},
 		"oceanine":                               {"OCN"},
 		"oddity":                                 {"ODT"},
-		"old-warez-inc":                          {"OWI"},
+		"old-warez-inc":                          {"OWI", "OldWarez Inc"},
 		"oldskool":                               {"OS"},
 		"old-school-pirates":                     {"OSP"},
 		"oneup":                                  {"1UP", "One Up"},
@@ -1086,6 +1086,11 @@ func Initialisms() *List { //nolint:maintidx
 		"akira-group-93":                         {"Akira 93", "AKA"},
 		"fighting-force":                         {"ffo"},
 		"stormzone-ftp":                          {"StormZone", "Storm Zone"},
+		"the-digital-afterlife":                  []string{"TDA"},
+		"shock-demo":                             []string{"Shock!"},
+		"sonic":                                  []string{"Sonic64", "son"},
+		"mnemonic-crackers":                      []string{"mnc"},
+		"shock":                                  []string{"SHOCKiSO", "SHOCK iSO", "SHOCKpDA"},
 	}
 	return &list
 }

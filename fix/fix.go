@@ -193,9 +193,11 @@ func PreSuffix(s string, title cases.Caser) string {
 			continue
 		}
 		trim := strings.TrimSuffix(word, suffix)
-		if value, err := strconv.Atoi(trim); err == nil {
-			return fmt.Sprintf("%d%s", value, strings.ToUpper(suffix))
+		value, err := strconv.Atoi(trim)
+		if err != nil {
+			continue
 		}
+		return fmt.Sprintf("%d%s", value, strings.ToUpper(suffix))
 	}
 	switch {
 	case strings.HasSuffix(word, "dox"):
