@@ -58,6 +58,9 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() *List { //nolint:maintidx
 	list := List{
+		"assimilation":                           {"ASM"},
+		"cellblock-4":                            {"CB4"},
+		"majik":                                  {"MJK"},
 		"swift-couriering-inc":                   {"SCI"},
 		"ians-rotting-corpse":                    {"IRC"},
 		"lords-of-chaos":                         {"LoC"},
@@ -241,7 +244,7 @@ func Initialisms() *List { //nolint:maintidx
 		"anemia":                                 {"ANM"},
 		"ansi-requires-talent":                   {"ART"},
 		"anti-warez-association":                 {"AWA"},
-		"anthrox":                                {"ATX"},
+		"anthrox":                                {"ATX", "AS"},
 		"anti-security-agency":                   {"ASA"},
 		"anti-lamers-foundation":                 {"ALF"},
 		"anarchy-international-production":       {"AIP"},
