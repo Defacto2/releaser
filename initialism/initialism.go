@@ -58,6 +58,14 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() *List { //nolint:maintidx
 	list := List{
+		"zczi":                                   {"SCSI", "sc2i"},
+		"msftug":                                 {"More shit from the underground"},
+		"mortality":                              {"MTY"},
+		"internet-relay-network":                 {"IRN"},
+		"inner-circle":                           {"IC"},
+		"generation-x":                           {"gen-x", "GNX"},
+		"eclipse-interactive":                    {"EPI"},
+		"darkside-couriers":                      {"DSC"},
 		"assimilation":                           {"ASM"},
 		"cellblock-4":                            {"CB4"},
 		"majik":                                  {"MJK"},
