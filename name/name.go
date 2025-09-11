@@ -113,7 +113,7 @@ func Names() *List {
 		"noclass":                               "NoClass",
 		"nofx-bbs":                              "NoFX BBS",
 		"nukethis":                              "NukeThis",
-		"numbers":                               "The Numbers",
+		"numbers":                               "NUMbers",
 		"nrp":                                   "NoRePack",
 		"paradox":                               "Paradox",
 		"phoenixbbs":                            "Phoenix BBS",
@@ -130,7 +130,7 @@ func Names() *List {
 		"shitonlygerman":                        "ShitOnlyGerman",
 		"software-pirates-inc":                  "Software Pirates Inc",
 		"surprise-productions":                  "Surprise! Productions",
-		"syndicate":                             "$yndicate",
+		"syndicate":                             "SyNDiCaTE",
 		"r2":                                    "Rebels + 2000AD",
 		"razordox":                              "RazorDOX",
 		"rhvid":                                 "RHViD",
@@ -216,6 +216,7 @@ func Names() *List {
 // Lowercase are a collection of styled names that use all lowercasing.
 func Lowercase() []string {
 	return []string{
+		"intel",
 		"mci-escapes",
 		"scenet",
 		"notwikipedia",
@@ -226,6 +227,7 @@ func Lowercase() []string {
 // Uppercase are a collection of styled names that use all uppercasing.
 func Uppercase() []string {
 	return []string{
+		"rise",
 		"icch",
 		"mash",
 		"casa",
