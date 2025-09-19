@@ -58,6 +58,10 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() List { //nolint:maintidx
 	return List{
+		"masters-of-destruction":                 {"MOD"},
+		"fuck-off-or-die":                        {"FOOD"},
+		"digital-corruption":                     {"DC"},
+		"crc":                                    {"CoRRuPTiON"},
 		"swift-couriering-inc":                   {"SCI"},
 		"ians-rotting-corpse":                    {"IRC"},
 		"lords-of-chaos":                         {"LoC"},
@@ -969,7 +973,7 @@ func Initialisms() List { //nolint:maintidx
 		"universal-crackers-of-the-underground":  {"UCU"},
 		"united-group-international":             {"UGI"},
 		"united-reverse-engineering-team":        {"URET"},
-		"united-software-association*fairlight":  {"USA/FLT", "USA"},
+		"united-software-association*fairlight":  {"USA/Fairlight", "USA/FLT", "USA"},
 		"united-states-courier-report":           {"USCR"},
 		"united-traders-of-germany":              {"UTG"},
 		"united-file-traders":                    {"UFT"},
