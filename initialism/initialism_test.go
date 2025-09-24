@@ -38,7 +38,7 @@ func ExampleJoin() {
 
 	fmt.Println(initialism.Join("united-software-association*fairlight")) // USA
 	// Output: FiRM, FRM
-	// USA/FLT, USA
+	// USA/Fairlight, USA/FLT, USA
 }
 
 func TestMatch(t *testing.T) {

@@ -1,18 +1,14 @@
 module github.com/Defacto2/releaser
 
-go 1.24.5
+go 1.24.1
 
 require (
-	github.com/nalgeon/be v0.3.0
-	golang.org/x/text v0.28.0
+	github.com/stretchr/testify v1.11.1
+	golang.org/x/text v0.29.0
 )
 
 require (
-	github.com/klauspost/compress v1.18.0 // indirect
-	go.uber.org/nilaway v0.0.0-20250805202745-8ad05f089790 // indirect
-	golang.org/x/mod v0.26.0 // indirect
-	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/tools v0.35.0 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-tool go.uber.org/nilaway/cmd/nilaway
