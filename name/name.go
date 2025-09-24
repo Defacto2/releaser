@@ -58,6 +58,7 @@ or converted due to their special uses within the name.
 // Names returns the list of well-known styled names.
 func Names() *List {
 	list := List{
+		"drift":                                 "DRiFT",
 		"god-network":                           "G.O.D. Network",
 		"german-diskdoubler":                    "German DiskDoubler",
 		"excel_xl":                              "EXCEL/XL!",

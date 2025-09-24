@@ -58,6 +58,11 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() *List { //nolint:maintidx
 	list := List{
+		"only-the-finest-warez":                  {"OTFW"},
+		"drift":                                  {"Drift'ers", "DRiFTers"},
+		"slow-trading-droopz":                    {"STD"},
+		"wasteland-ftp":                          {"TWL", "The Wasteland FTP"},
+		"rock-ftp":                               {"The Rock FTP"},
 		"v_i_b_e_s":                              {"VBS", "VIBES"},
 		"intel":                                  {"International Nocturnal Team of Elite Loaders"},
 		"compress-da-audio":                      {"CDA", "Compress 'da Audio"},
