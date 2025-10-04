@@ -210,6 +210,7 @@ func Names() *List {
 		"trc-ware-report":                       "TRC Ware Report",
 		"backlash":                              "BackLash",
 		"fogo":                                  "fOGO",
+		"toss":                                  "ToSS",
 	}
 	return &list
 }
@@ -228,6 +229,7 @@ func Lowercase() []string {
 // Uppercase are a collection of styled names that use all uppercasing.
 func Uppercase() []string {
 	return []string{
+		"lspd",
 		"rise",
 		"icch",
 		"mash",
