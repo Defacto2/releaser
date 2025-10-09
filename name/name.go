@@ -211,6 +211,7 @@ func Names() *List {
 		"backlash":                              "BackLash",
 		"fogo":                                  "fOGO",
 		"toss":                                  "ToSS",
+		"xtc-systems-bbs":                       "XTC Systems BBS",
 	}
 	return &list
 }
