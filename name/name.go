@@ -212,6 +212,8 @@ func Names() *List {
 		"fogo":                                  "fOGO",
 		"toss":                                  "ToSS",
 		"xtc-systems-bbs":                       "XTC Systems BBS",
+		"mci-escapes-bbs":                       "MCi Escapes BBS",
+		"atlanta-pcug-bbs":                      "Atlanta PCUG BBS",
 	}
 	return &list
 }
