@@ -4,5 +4,5 @@ go 1.25.2
 
 require (
 	github.com/nalgeon/be v0.3.0
-	golang.org/x/text v0.29.0
+	golang.org/x/text v0.30.0
 )
