@@ -58,6 +58,8 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() *List { //nolint:maintidx
 	list := List{
+		"rpm-bbs":                                {"Revolutions Per Minute BBS", "R.P.M BBS"},
+		"swat":                                   {"Special Warez Acquisition Team", "S.W.A.T"},
 		"cloud-nine-elite-bbs":                   {"Cloud 9 Elite BBS"},
 		"phunline-bbs":                           {"The Phun Line BBS"},
 		"nevada-testing-grounds-bbs":             {"NTG BBS"},

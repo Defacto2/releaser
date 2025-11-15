@@ -58,6 +58,7 @@ or converted due to their special uses within the name.
 // Names returns the list of well-known styled names.
 func Names() *List {
 	list := List{
+		"swat":                                  "SWaT",
 		"skill":                                 "SKiLL",
 		"icepack":                               "iCEPACK",
 		"drift":                                 "DRiFT",
@@ -300,7 +301,6 @@ func Uppercase() []string {
 		"scf-ftp",
 		"scsi-ftp",
 		"shot",
-		"swat",
 		"tiw-bbs",
 		"tbb-ftp",
 		"tcsm-bbs",
