@@ -1,6 +1,6 @@
 module github.com/Defacto2/releaser
 
-go 1.25.2
+go 1.25.5
 
 require (
 	github.com/nalgeon/be v0.3.0
