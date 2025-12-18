@@ -58,6 +58,18 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() *List { //nolint:maintidx
 	list := List{
+		"software-distribution-corporation":      {"SDC"},
+		"sons-of-boredom":                        {"SOB"},
+		"lousy-old-loops":                        {"lool"},
+		"doomsday-machines":                      {"DDM"},
+		"devious-dezigns":                        {"DVS"},
+		"faction-amiga":                          {"FTN"},
+		"highlight":                              {"HL"},
+		"highlight-ampersand-resistance-inc":     {"HLRI"},
+		"hotstuffers":                            {"HTS"},
+		"necropedophillic-anti_social-imbecils":  {"NAI"},
+		"avantgarde":                             {"AVT"},
+		"stealth-force":                          {"TSF"},
 		"rpm-bbs":                                {"Revolutions Per Minute BBS", "R.P.M BBS"},
 		"swat":                                   {"Special Warez Acquisition Team", "S.W.A.T"},
 		"cloud-nine-elite-bbs":                   {"Cloud 9 Elite BBS"},
