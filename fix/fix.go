@@ -309,7 +309,7 @@ func TrimThe(name string) string {
 	}
 	l := strings.ToUpper(a[len(a)-1])
 	if strings.EqualFold(a[0], "the") && (l == "BBS" || l == "FTP") {
-		return strings.Join(a[1:], space) // drop "the" prefix
+		return strings.TrimSpace(strings.Join(a[1:], space)) // drop "the" prefix
 	}
 	return name
 }
