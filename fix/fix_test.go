@@ -106,6 +106,9 @@ func TestTrimDot(t *testing.T) {
 		{"no dots", args{"hello"}, "hello"},
 		{"dot", args{"hello."}, "hello"},
 		{"dots", args{"hello.."}, "hello."},
+		{"utf8_accent_with_dot", args{"Café."}, "Café"},
+		{"utf8_accent_no_dot", args{"Café"}, "Café"},
+		{"utf8_mixed", args{"Crème Brûlée."}, "Crème Brûlée"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

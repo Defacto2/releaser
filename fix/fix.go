@@ -4,7 +4,6 @@ package fix
 import (
 	"fmt"
 	"regexp"
-	"slices"
 	"strconv"
 	"strings"
 
@@ -188,7 +187,7 @@ func Format(s string) string {
 func PreSuffix(s string, title cases.Caser) string {
 	word := strings.ToLower(s)
 	atois := []string{"ad", "bc", "am", "pm"}
-	for suffix := range slices.Values(atois) {
+	for _, suffix := range atois {
 		if !strings.HasSuffix(word, suffix) {
 			continue
 		}
@@ -201,23 +200,17 @@ func PreSuffix(s string, title cases.Caser) string {
 	}
 	switch {
 	case strings.HasSuffix(word, "dox"):
-		trim := strings.TrimSuffix(word, "dox")
-		return title.String(trim) + "Dox"
+		return title.String(strings.TrimSuffix(word, "dox")) + "Dox"
 	case strings.HasSuffix(word, "fxp"):
-		trim := strings.TrimSuffix(word, "fxp")
-		return title.String(trim) + "FXP"
+		return title.String(strings.TrimSuffix(word, "fxp")) + "FXP"
 	case strings.HasSuffix(word, "iso"):
-		trim := strings.TrimSuffix(word, "iso")
-		return title.String(trim) + "ISO"
+		return title.String(strings.TrimSuffix(word, "iso")) + "ISO"
 	case strings.HasSuffix(word, "nfo"):
-		trim := strings.TrimSuffix(word, "nfo")
-		return title.String(trim) + "NFO"
+		return title.String(strings.TrimSuffix(word, "nfo")) + "NFO"
 	case strings.HasPrefix(word, "pc-"):
-		trim := strings.TrimPrefix(word, "pc-")
-		return "PC-" + title.String(trim)
+		return "PC-" + title.String(strings.TrimPrefix(word, "pc-"))
 	case strings.HasPrefix(word, "lsd"):
-		trim := strings.TrimPrefix(word, "lsd")
-		return "LSD" + title.String(trim)
+		return "LSD" + title.String(strings.TrimPrefix(word, "lsd"))
 	}
 	return ""
 }
@@ -272,12 +265,9 @@ func StripStart(s string) string {
 //	TrimDot("hello.") = "hello"
 //	TrimDot("hello..") = "hello."
 func TrimDot(s string) string {
-	const short = 2
-	if len(s) < short {
-		return s
-	}
-	if l := s[len(s)-1:]; l == "." {
-		return s[:len(s)-1]
+	t, ok := strings.CutSuffix(s, ".")
+	if ok {
+		return t
 	}
 	return s
 }
