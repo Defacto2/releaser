@@ -12,10 +12,10 @@ import (
 	"github.com/Defacto2/releaser/name"
 )
 
-// initialisms are a cache of thatgreatly improves benchmark performance.
+// initialisms are a cache of that greatly improves benchmark performance.
 var initialisms = initialism.Initialisms() //nolint:gochecknoglobals
 
-// specials are a cache of thatgreatly improves benchmark performance.
+// specials are a cache of that greatly improves benchmark performance.
 var specials = name.Special() //nolint:gochecknoglobals
 
 // Cell formats the string to be used as a cell in a database table.

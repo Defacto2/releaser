@@ -4,7 +4,7 @@
 //
 // An acronym is an abbreviation formed from the initial letters of other words and pronounced as a word (e.g. NATO).
 //
-// An initialism is an abbreviation consisting of the initial letters pronounced invidivually (e.g. USA).
+// An initialism is an abbreviation consisting of the initial letters pronounced individually (e.g. USA).
 package initialism
 
 import (
