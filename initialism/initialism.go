@@ -1020,7 +1020,7 @@ func Initialisms() *List { //nolint:maintidx
 		"syndicate":                              {"SYN"},
 		"the-syndicate":                          {"$ynd", "The $yndicate", "The $yndacite"},
 		"talent-entertainment":                   {"TLN"},
-		"tdu_jam":                                {"TDU", "The Digital Underground", "A TDU Jam!"},
+		"tdu_jam":                                {"TDU-Jam!", "TDU", "TDUJAM", "TDU JAM"},
 		"starlight":                              {"SLT"},
 		"scum":                                   {"S.C.U.M"},
 		"crazy-nation":                           {"CZN"},
