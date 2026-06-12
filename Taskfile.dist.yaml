@@ -29,6 +29,14 @@ tasks:
       - cmd: go fix ./...
       - cmd: gofumpt -l -w .
       - cmd: golangci-lint run -c .golangci.yaml
+  linter:
+    silent: false
+    desc: Runs the go linter on the source code.
+    ignore_error: true
+    cmds:
+      - cmd: clear
+        platforms: [linux, darwin, freebsd]
+      - cmd: golangci-lint run -c .golangci.yaml
   nil:
     desc: 'Run the static analysis techniques to catch Nil dereferences.'
     cmds:
