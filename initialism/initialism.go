@@ -82,6 +82,7 @@ const (
 // [releaser/name]: https://github.com/Defacto2/releaser/name
 func Initialisms() *List { //nolint:maintidx
 	list := List{
+		"nukers-database":                       {"nDB"},
 		"software-distribution-corporation":     {"SDC"},
 		"sons-of-boredom":                       {"SOB"},
 		"lousy-old-loops":                       {"lool"},
@@ -383,7 +384,7 @@ func Initialisms() *List { //nolint:maintidx
 		"the-marshall-mussolini-show":            {"TMMS"},
 		"weekly-courier-stats-report":            {"WCSR"},
 		"the-tobacco-brothers":                   {"TTBC"},
-		"orgasming-gaming-magazine":              {"ORGAS"},
+		"orgasming-gaming-magazine":              {"OGM", "ORGAS"},
 		"monthly-cracking-report":                {"MCR"},
 		"zero-second-report":                     {"0SR"},
 		"unbiased-courier-report":                {"UCR"},
@@ -1132,7 +1133,10 @@ func Initialisms() *List { //nolint:maintidx
 		"the-nameless-ones":                      {"TNO"},
 		"the-naked-truth-magazine":               {"NTM"},
 		"the-new-order-of-sacro_elite":           {"NOOSE"},
-		"the-net-monkey-weekly-report":           {"TNMWR"},
+		"the-net-monkey-weekly-report": {
+			"NWR", "NetMonkey Report", "Netmonkey Weekly Report", "Netmonkey Courier Report",
+			"Netmonkey Weekend Report",
+		},
 		"the-north-west-connection":              {"TNWC"},
 		"the-nova-team":                          {"TNT"},
 		"the-one-and-only":                       {"TOAO"},
