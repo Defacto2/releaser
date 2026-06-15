@@ -3,6 +3,11 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/Defacto2/releaser.svg)](https://pkg.go.dev/github.com/Defacto2/releaser)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Defacto2/magicnumber)](https://goreportcard.com/report/github.com/Defacto2/magicnumber)
 
+> [!IMPORTANT]
+> ### This package has been merged into the main server repository:
+> 
+> #### https://github.com/Defacto2/server/tree/main/handler/releaser
+
 A Go library for handling the formatting of Defacto2 [releasers](https://defacto2.net/releaser). See the [reference documentation](https://pkg.go.dev/github.com/Defacto2/releaser) for additional usage and examples.
 
 Releasers are the groups or organisations that create the art, music, demos, intros, cracks, etc. that are found on the Defacto2 website. They are also the sites and boards that have hosted the files and communities.
